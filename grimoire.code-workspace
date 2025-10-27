@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"name": "✨ grimoire",
+			"path": "."
+		},
+		{
+			"name": "📦 @arckate/grimoire-cli",
+			"path": "packages/grimoire-cli"
+		},
+		{
+			"name": "📦 @arckate/grimoire-core",
+			"path": "packages/grimoire-core"
+		},
+		{
+			"name": "📦 @arckate/grimoire-tome",
+			"path": "packages/grimoire-tome"
+		},
+		{
+			"name": "📦 @arckate/handlebars-ml",
+			"path": "packages/handlebar-ml"
+		},
+		{
+			"name": "📦 @arckate/testing-cli",
+			"path": "packages/testing-cli"
+		}
+	],
+	"settings": {}
+}
