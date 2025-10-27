@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/testing-cli" },
+    { "path": "packages/grimoire-core" },
+    { "path": "packages/grimoire-cli" },
+  ]
+}
