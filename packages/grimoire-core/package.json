@@ -1,0 +1,114 @@
+{
+	"name": "@arckate/grimoire-core",
+	"type": "module",
+	"version": "0.0.1",
+	"description": "Un framework de test inspiré de Testing Library pour les CLI basées sur Commander",
+	"main": "dist/index.mjs",
+	"types": "dist/index.d.mts",
+	"author": {
+		"name": "Emeric Lebbrecht",
+		"email": "emeric.lebbrecht@gmail.com"
+	},
+	"license": "MIT",
+	"scripts": {
+		"build": "tsdown",
+		"test": "vitest run --config vitest.config.ts --coverage",
+		"test:watch": "vitest --config vitest.config.ts --coverage",
+		"lint": "biome check --write",
+		"clean": "rm -rf dist tsconfig.tsbuildinfo"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"types": "./dist/index.d.mts"
+		},
+		"./utils": {
+			"import": "./dist/utils/index.mjs",
+			"types": "./dist/utils/index.d.mts"
+		},
+		"./prompts": {
+			"import": "./dist/prompts/index.mjs",
+			"types": "./dist/prompts/index.d.mts"
+		},
+		"./path": {
+			"import": "./dist/path/index.mjs",
+			"types": "./dist/path/index.d.mts"
+		},
+		"./errors": {
+			"import": "./dist/errors/index.mjs",
+			"types": "./dist/errors/index.d.mts"
+		},
+		"./entities": {
+			"import": "./dist/entities/index.mjs",
+			"types": "./dist/entities/index.d.mts"
+		},
+		"./const": {
+			"import": "./dist/const/index.mjs",
+			"types": "./dist/const/index.d.mts"
+		},
+		"./config": {
+			"import": "./dist/config/index.mjs",
+			"types": "./dist/config/index.d.mts"
+		},
+		"./cmd": {
+			"import": "./dist/cmd/index.mjs",
+			"types": "./dist/cmd/index.d.mts"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"config": [
+				"dist/config/index.d.mts"
+			],
+			"utils": [
+				"dist/utils/index.d.mts"
+			],
+			"prompts": [
+				"dist/prompts/index.d.mts"
+			],
+			"path": [
+				"dist/path/index.d.mts"
+			],
+			"errors": [
+				"dist/errors/index.d.mts"
+			],
+			"entities": [
+				"dist/entities/index.d.mts"
+			],
+			"const": [
+				"dist/const/index.d.mts"
+			],
+			"cmd": [
+				"dist/cmd/index.d.mts"
+			]
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"dependencies": {
+		"@inquirer/prompts": "^7.10.1",
+		"@types/lodash.merge": "^4.6.9",
+		"@types/lodash.mergewith": "^4.6.9",
+		"chalk": "^5.6.2",
+		"commander": "^14.0.2",
+		"lodash.merge": "^4.6.2",
+		"lodash.mergewith": "^4.6.2",
+		"node-plop": "^0.32.3",
+		"ora": "^9.0.0"
+	},
+	"devDependencies": {
+		"@arckate/testing-cli": "workspace:*",
+		"@biomejs/biome": "2.3.5",
+		"@types/node": "^24.10.1",
+		"@vitest/coverage-v8": "^4.0.9",
+		"tsdown": "^0.16.4",
+		"typescript": "^5.9.3",
+		"vitest": "^4.0.9"
+	},
+	"turbo": {
+		"tags": [
+			"core"
+		]
+	}
+}
