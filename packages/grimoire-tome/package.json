@@ -1,0 +1,21 @@
+{
+	"name": "@arckate/grimoire-tome",
+	"version": "0.0.0",
+	"author": {
+		"name": "Emeric Lebbrecht",
+		"email": "emeric.lebbrecht@gmail.com"
+	},
+	"license": "MIT",
+	"scripts": {
+		"lint": "biome check --write",
+		"clean": "rm -rf dist"
+	},
+	"turbo": {
+		"tags": [
+			"tome"
+		]
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.6"
+	}
+}
