@@ -1,0 +1,59 @@
+{
+  "name": "grimoire",
+  "version": "0.0.1",
+  "displayName": "Grimoire",
+  "description": "A CLI framework built to supercharge your DX",
+  "author": {
+    "name": "Emeric LEBBRECHT",
+    "email": "emeric.lebbrecht@gmail.com"
+  },
+  "license": "MIT",
+  "publisher": "ephaesto",
+  "homepage": "https://github.com/ephaesto/grimoire",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ephaesto/grimoire.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ephaesto/grimoire/issues"
+  },
+  "keywords": [
+    "cli",
+    "framework",
+    "dx",
+    "tooling",
+    "developer-experience"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:changed": "turbo run test --filter=...[origin/main]",
+    "lint": "turbo run lint",
+    "prepare": "husky"
+  },
+  "packageManager": "pnpm@10.22.0",
+  "engines": {
+    "node": ">=24.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.5",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "biome": "^0.3.3",
+    "chalk": "^5.6.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "npm-check-updates": "^19.1.2",
+    "semver": "^7.7.3",
+    "turbo": "^2.6.1",
+    "yaml": "^2.8.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,d.ts,jsx,tsx,json}": [
+      "biome check --write --no-errors-on-unmatched",
+      "biome check --write --unsafe --no-errors-on-unmatched",
+      "biome format --write --no-errors-on-unmatched",
+      "biome lint --write --no-errors-on-unmatched"
+    ]
+  }
+}
