@@ -1,0 +1,54 @@
+{
+  "name": "grimoire",
+  "version": "0.0.1",
+  "displayName": "Grimoire",
+  "description": "A CLI framework built to supercharge your DX",
+  "author": {
+    "name": "Emeric Lebbrecht",
+    "email": "emeric.lebbrecht@gmail.com"
+  },
+  "license": "MIT",
+  "publisher": "ephaesto",
+  "homepage": "https://github.com/ephaesto/grimoire",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ephaesto/grimoire.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ephaesto/grimoire/issues"
+  },
+  "keywords": [
+    "cli",
+    "framework",
+    "dx",
+    "tooling",
+    "developer-experience"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "check": "biome check --write",
+    "prepare": "husky"
+  },
+  "packageManager": "pnpm@10.19.0",
+  "engines": {
+    "node": ">=24.1.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "biome": "^0.3.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "turbo": "^2.5.8"
+  },
+  "lint-staged": {
+    "*.{js,ts,d.ts,jsx,tsx,json}": [
+      "biome check --write --no-errors-on-unmatched",
+      "biome check --write --unsafe --no-errors-on-unmatched",
+      "biome format --write --no-errors-on-unmatched",
+      "biome lint --write --no-errors-on-unmatched"
+    ]
+  }
+}
