@@ -1,0 +1,2 @@
+node .scripts/verify-signature.mjs
+pnpm dlx commitlint --edit $1
