@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"lib": ["ESNext", "DOM"],
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"types": ["vitest"],
+		"baseUrl": ".",
+		"paths": {
+			"~/src/*": ["src/*"],
+			"~/.cli/*": [".cli/*"]
+		}
+	},
+	"include": ["src", ".cli/**/*", "vitest.setup.ts", "vitest.config.ts"],
+	"exclude": ["node_modules"]
+}

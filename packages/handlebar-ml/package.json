@@ -1,0 +1,151 @@
+{
+    "name": "@arckate/handlebars-ml",
+    "displayName": "@arckate/handlebars-ml",
+    "description": "VSCode extension for handlebars multi languages",
+    "version": "0.0.0",
+    "license": "MIT",
+    "publisher": "EmericLebb",
+    "repository": {
+        "url": "https://github.com/ephaesto/vscode-handlebars-ml"
+    },
+    "author": {
+        "name": "Emeric Lebbrecht"
+    },
+    "engines": {
+        "vscode": "^1.38.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "handlebars-js",
+                "aliases": [
+                    "Javascript HBS"
+                ],
+                "extensions": [
+                    ".hbs.js",
+                    ".handlebars.js"
+                ],
+                "configuration": "./languages/inline-template.json",
+                "icon": {
+                    "light": "./icons/javascript.svg",
+                    "dark": "./icons/javascript.svg"
+                }
+            },
+            {
+                "id": "handlebars-jsx",
+                "aliases": [
+                    "Javascript JSX HBS"
+                ],
+                "extensions": [
+                    ".hbs.jsx",
+                    ".handlebars.jsx"
+                ],
+                "configuration": "./languages/inline-template.json",
+                "icon": {
+                    "light": "./icons/react.svg",
+                    "dark": "./icons/react.svg"
+                }
+            },
+            {
+                "id": "handlebars-ts",
+                "aliases": [
+                    "Typescript HBS"
+                ],
+                "extensions": [
+                    ".hbs.ts",
+                    ".handlebars.ts"
+                ],
+                "configuration": "./languages/inline-template.json",
+                "icon": {
+                    "light": "./icons/typescript.svg",
+                    "dark": "./icons/typescript.svg"
+                }
+            },
+            {
+                "id": "handlebars-tsx",
+                "aliases": [
+                    "Typescript JSX HBS"
+                ],
+                "extensions": [
+                    ".hbs.tsx",
+                    ".handlebars.tsx"
+                ],
+                "configuration": "./languages/inline-template.json",
+                "icon": {
+                    "light": "./icons/react.svg",
+                    "dark": "./icons/react.svg"
+                }
+            }
+        ],
+        "grammars": [
+            {
+                "language": "handlebars-js",
+                "path": "./syntaxes/handlebars-js.json",
+                "scopeName": "source.hbs.js",
+                "embeddedLanguages": {
+                    "source.hbs.js": "javascript"
+                }
+            },
+            {
+                "language": "handlebars-jsx",
+                "path": "./syntaxes/handlebars-jsx.json",
+                "scopeName": "source.hbs.jsx",
+                "embeddedLanguages": {
+                    "source.hbs.jsx": "javascript"
+                }
+            },
+            {
+                "language": "handlebars-ts",
+                "path": "./syntaxes/handlebars-ts.json",
+                "scopeName": "source.hbs.ts",
+                "embeddedLanguages": {
+                    "source.hbs.ts": "typescript"
+                }
+            },
+            {
+                "language": "handlebars-tsx",
+                "path": "./syntaxes/handlebars-tsx.json",
+                "scopeName": "source.hbs.tsx",
+                "embeddedLanguages": {
+                    "source.hbs.tsx": "typescriptreact"
+                }
+            },
+            {
+                "injectTo": [
+                    "source.js",
+                    "source.ts",
+                    "source.tsx"
+                ],
+                "scopeName": "inline.hbs",
+                "path": "./syntaxes/inline-hbs.json",
+                "embeddedLanguages": {
+                    "meta.embedded.block.html": "text.html.handlebars"
+                }
+            },
+            {
+                "injectTo": [
+                    "source.hbs.ts",
+                    "source.hbs.tsx",
+                    "source.hbs.jsx",
+                    "source.hbs.js"
+                ],
+                "scopeName": "inline.template",
+                "path": "./syntaxes/inline-template.json",
+                "embeddedLanguages": {
+                    "meta.js.embeddedTemplateWithoutArgs": "handlebars",
+                    "meta.js.embeddedTemplateWithArgs": "handlebars"
+                }
+            }
+        ]
+    },
+    "icon": "icon.png",
+    "devDependencies": {
+        "@biomejs/biome": "2.3.6"
+    },
+    "scripts": {
+        "publish": "vsce publish"
+    }
+}
