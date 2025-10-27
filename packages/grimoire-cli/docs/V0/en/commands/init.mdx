@@ -1,0 +1,72 @@
+---
+title: 'Cli'
+sidebar_position: 6.1
+sidebar_label: Init
+description: CLI initialization and generation of base configuration files via configurable generators.
+---
+
+# Initialization Command (Init)
+
+The `init` command initializes the CLI and generates the necessary base configuration files for the project. It relies on a system of configurable generators.
+
+## Configuration
+
+The command is registered in `config.ts` with the following properties:
+- **Command Function**: `cmdInit`
+- **Associated Generator**: `generatorInit`
+- **Configuration Key**: `inits`
+
+By default, the configuration (`.cli/inits.ts`) defines:
+- **Default Template**: `default`
+- **Source Folder**: `defaultDir`
+- **Action**: `defaultInit`
+
+### Technical Structure
+
+The `InitsConfig` interface defines the registry of available initialization functions:
+
+```typescript
+export type InitsConfig = Record<
+    string,
+    InitFn | { nameDir: string; initFn: InitFn }
+>;
+```
+
+Each initializer is an `InitFn` function using the following types:
+
+```typescript
+export type InitFindDir = (extraPath: string) => string;
+
+interface InitFnParams {
+    findDir?: InitFindDir;
+    config: FnConfig;
+}
+
+export type InitFn = (params: InitFnParams) => Partial<PlopGeneratorConfig>;
+```
+
+## CLI Usage
+
+### Signature
+
+`grimoire init [string...] [options]`
+
+### Arguments
+- `[string...]`: Optional arguments passed directly to the Plop generator.
+
+### Options
+- `-f, --force`: Forces overwriting of existing files (default: `false`).
+- `--out <path>`: Defines the destination path for file generation (default: current directory).
+- `-p, --ignore-prompts`: Ignores interactive Plop prompts and uses provided arguments.
+
+## Internal Workings
+
+The `cmdInit` function executes the following steps:
+1. **Path Resolution**: Locates the initialization Plop file (`INIT_PLOP_FILE`) and the inits configuration file (`CONF_INITS`).
+2. **Configuration Merging**: Uses `mergeInitsConfig` to combine discovered initialization configurations.
+3. **Argument Processing**: Analyzes ignored parameters and passed arguments to prepare execution.
+4. **Plop Execution**: Calls `cmdPlop` with configured parameters, including the extension and file type defined in the global configuration.
+
+## Dependencies and Links
+- Based on the [Plop](https://plopjs.com/) engine.
+- Uses internal utilities from [@arckate/grimoire-core](https://www.npmjs.com/).

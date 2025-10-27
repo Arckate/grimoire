@@ -1,0 +1,63 @@
+---
+title: 'Cli'
+sidebar_position: 7.5
+sidebar_label: copyTo
+description: Documentation for the copyTo custom action for file conversion and duplication via processors.
+---
+
+# Action: copyTo
+
+The `copyTo` action is an advanced extension for Plop that allows copying a source file while transforming it from one format to another (e.g., from JSON to TypeScript) using `@arckate/grimoire-core` processors.
+
+## Function Signature
+
+```typescript
+export const copyTo: CustomActionFunction = (answers, config, plop) => {
+    // Resolution, reading via processor, and converted writing
+}
+```
+
+## Configuration Parameters
+
+The `config` object accepts the following properties:
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `src` | `string` | Source file path (supports Handlebars). |
+| `typeFileFrom` | `string` | Source content type for the processor. |
+| `nameFileTo` | `string` | Destination file name (without extension, supports Handlebars). |
+| `extFileTo` | `string` | Destination file extension (e.g., `ts`). |
+| `typeFileTo` | `string` | Target content type for the processor. |
+| `force` | `boolean` | If `true`, overwrites the destination file if it already exists. |
+
+## Technical Behavior
+
+1. **Path Resolution**: 
+   - The source is resolved relative to the Plop file path.
+   - The destination is built by combining `nameFileTo` and `extFileTo`, then resolved relative to the project base.
+2. **Existence Validation**: If `force` is set to `false` and the target file exists, an error is thrown.
+3. **Processor System**:
+   - The action retrieves the global `processor`.
+   - It uses the `read` method associated with the source extension and `typeFileFrom`.
+   - It uses the `write` method associated with `extFileTo` and `typeFileTo`.
+4. **Execution**: The destination directory is created recursively, the file is read and transformed, then written to the disk.
+
+## Usage Example
+
+```typescript
+{
+  type: 'copyTo',
+  src: 'data/config.json',
+  typeFileFrom: 'json',
+  nameFileTo: 'src/config/settings',
+  extFileTo: 'ts',
+  typeFileTo: 'typescript',
+  force: false
+}
+```
+
+## Useful Links
+
+- [Plop.js Documentation](https://plopjs.com/)
+- [Node.js Path API](https://nodejs.org/)
+- [Node.js File System API](https://nodejs.org/)

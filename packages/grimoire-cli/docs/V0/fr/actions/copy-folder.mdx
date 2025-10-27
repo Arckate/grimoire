@@ -1,0 +1,53 @@
+---
+title: 'Cli'
+sidebar_position: 7.4
+sidebar_label: copyFolder
+description: Documentation de l'action personnalisée copyFolder pour la duplication récursive de répertoires via Plop.
+---
+
+# Action : copyFolder
+
+L'action `copyFolder` est une extension personnalisée pour Plop permettant de copier l'intégralité d'un répertoire (incluant les sous-dossiers et fichiers) depuis le répertoire de Plop vers une destination dans le projet.
+
+## Signature de la fonction
+
+```typescript
+export const copyFolder: CustomActionFunction = (answers, config, plop) => {
+    // Résolution des chemins et copie récursive du répertoire
+}
+```
+
+## Paramètres de configuration
+
+L'objet `config` accepte les propriétés suivantes :
+
+| Propriété | Type | Description |
+| :--- | :--- | :--- |
+| `src` | `string` | Chemin source du dossier (supporte Handlebars). |
+| `dest` | `string` | Chemin de destination (supporte Handlebars). |
+| `force` | `boolean` | Si `true`, ignore l'erreur si le dossier de destination existe déjà. |
+
+## Fonctionnement technique
+
+1. **Résolution Source** : Le chemin du dossier source est résolu relativement à l'emplacement du fichier Plop (`plop.getPlopfilePath()`).
+2. **Résolution Destination** : Le chemin de destination est résolu relativement à la base du projet (`plop.getDestBasePath()`).
+3. **Validation** : Si `force` est à `false` et que le dossier de destination existe déjà, l'action lève une exception pour éviter tout écrasement accidentel.
+4. **Création du parent** : La fonction initialise le dossier de destination avec `fs.mkdirSync` et l'option `recursive: true`.
+5. **Copie Récursive** : Utilise `fs.cpSync` avec l'option `{ recursive: true }` pour dupliquer l'intégralité de l'arborescence source vers la destination.
+
+## Exemple d'utilisation
+
+```typescript
+{
+  type: 'copyFolder',
+  src: 'templates/starter-kit',
+  dest: 'packages/{{kebabCase name}}',
+  force: false
+}
+```
+
+## Liens utiles
+
+- [Documentation Plop.js](https://plopjs.com/)
+- [Node.js fs.cpSync](https://nodejs.org/)
+- [Node.js fs.mkdirSync](https://nodejs.org/)

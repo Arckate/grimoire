@@ -1,0 +1,57 @@
+---
+title: 'Cli'
+sidebar_position: 3.9
+sidebar_label: Prompts
+description: Définition des prompts personnalisés pour les interactions utilisateur.
+---
+
+### Prompts
+
+La clé `prompts` permet de définir et d'enregistrer des types de questions personnalisées pour vos générateurs. Elle fonctionne de manière similaire à `setPrompt` dans **plop.js**, mais elle n'est pas liée à une bibliothèque de prompts spécifique.
+
+#### Structure de l'objet
+
+```typescript
+    prompts: { 
+        [promptName: string]: Fn 
+    }
+```
+
+#### Rôle de la propriété
+
+Cette section permet d'étendre les types de saisies disponibles lors de l'exécution des commandes. Vous pouvez y ajouter des composants d'interface en ligne de commande (CLI) spécifiques qui ne sont pas inclus par défaut.
+
+#### Exemple d'utilisation
+
+Dans votre fichier `.cli/config.ts`, vous pouvez enregistrer des types de prompts externes ou personnalisés :
+
+```typescript
+    import { 
+        input, 
+        Checkbox, 
+        Confirm, 
+        Editor, 
+        Expand, 
+        List, 
+        Number, 
+        Password, 
+        RawList 
+    } from './prompts';
+
+    const config = {
+        // ...
+        prompts: {
+            input, 
+            Checkbox, 
+            Confirm, 
+            Editor, 
+            Expand, 
+            List, 
+            Number,
+            Password,
+            RawList,
+        }
+    };
+```
+
+Une fois enregistrés, ces prompts deviennent accessibles dans la configuration de n'importe quelle commande via la propriété `type` de l'objet prompt.

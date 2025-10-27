@@ -1,0 +1,51 @@
+---
+title: 'Cli'
+sidebar_position: 3.8
+sidebar_label: Actions
+description: Definition of custom actions for generators.
+---
+
+### Actions
+
+The `actions` key is used to define and configure the types of actions available for your generators. It works similarly to `setActionType` in **plop.js**, allowing you to extend the engine's file manipulation capabilities.
+
+#### Object Structure
+
+```typescript
+    actions: { 
+        [actionName: string]: Fn 
+    }
+```
+
+#### Native Actions Included
+
+By default, Grimoire can be configured with the following actions:
+
+| Action | Description |
+| :--- | :--- |
+| `copy` | Copies a file from a source to a destination. |
+| `copyTo` | Copies a file to a specific location with transformation. |
+| `addFolder` | Creates a new folder in the directory tree. |
+| `copyFolder` | Duplicates an entire folder and its contents. |
+| `addTo` | Adds content to an existing file. |
+
+#### Usage Example
+
+In your `.cli/config.ts` file, you register your action functions to make them available for your commands:
+
+```typescript
+    import { copy, addFolder, copyTo, addTo, copyFolder } from './actions';
+
+    const config = {
+        // ...
+        actions: {
+            copy,
+            addFolder,
+            copyTo,
+            addTo,
+            copyFolder,
+        }
+    };
+```
+
+This centralized approach allows your generators to access a catalog of reusable actions across your entire project or organization.

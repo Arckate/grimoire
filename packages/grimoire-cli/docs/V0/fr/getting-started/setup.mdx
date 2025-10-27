@@ -1,0 +1,59 @@
+---
+title: 'Cli'
+sidebar_position: 2.2
+sidebar_label: Configurer un projet
+description: Explication rapide des différentes configurations de Grimoire.
+---
+
+# Configurer un projet
+
+## Comment sont gérées les configurations
+
+Le projet est construit sur 3 niveaux
+
+1. **Grimoire** : il s'agit de la **CLI** par défaut. Elle possède la configuration commune à toutes les CLI de type Grimoire dans son dossier **.cli**.
+2. **Votre CLI personnalisée** : elle permet de partager votre configuration spécifique via son dossier **.cli** pour une organisation donnée.
+3. **Le dossier .cli local** : situé à la racine du projet utilisateur, il permet à vos équipes de gérer leurs propres spécificités.
+
+La configuration de ces trois niveaux est fusionnée (merger) tout en restant indépendante. Vous pouvez, par exemple, n'utiliser que les niveaux 1 et 3.
+
+## Les différentes configurations
+
+Dans cette partie, j'expliquerai de façon rapide les différentes configurations. Les documentations détaillées seront disponibles dans leurs catégories respectives. 
+
+### Le fichier "config.cli.json"
+
+Ce fichier permet, grâce à sa clé **root**, d'indiquer à **Grimoire** où se situe la racine du projet et donc le dossier ".cli".
+C'est la clé de voûte de la gestion en monorepo du système : il vous permet de simplifier la gestion des générateurs.
+
+### Le fichier config.ts
+
+Je suis parti du principe que développer des CLI est souvent fastidieux. J'ai donc choisi de piloter au maximum le framework par de la configuration.
+De cette manière, on obtient une CLI entièrement "blanche", libre de mes décisions initiales.
+
+```typescript
+{
+	name: string,
+	cliFolder: string,
+	rootKey: string, // camelCase
+	dirnamesFile: string,
+	description: string,
+	version: string,
+	...
+};
+```
+
+### Les configurations de commandes
+
+Chaque commande peut avoir sa propre **config**, dont l'URL est renseignée dans la clé correspondante du fichier **config.ts**.
+
+```typescript
+// ./starter.ts
+const config: StarterConfig = {
+	inits,
+	generators,
+	starters: {
+		reactDefault,
+	},
+};
+```

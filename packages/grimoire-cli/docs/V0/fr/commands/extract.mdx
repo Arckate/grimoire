@@ -1,0 +1,58 @@
+---
+title: 'Cli'
+sidebar_position: 6.2
+sidebar_label: Extract
+description: Configuration et exécution de l'extraction de fichiers via des générateurs Plop personnalisés.
+---
+
+# Commande d'Extraction (Extract)
+
+La commande `extract` permet d'extraire des composants ou des modules vers des dossiers spécifiques en utilisant des fonctions de transformation et des générateurs.
+
+## Configuration
+
+La commande est enregistrée dans la configuration globale avec les propriétés suivantes :
+- **Fonction de commande** : `cmdExtract`
+- **Générateur associé** : `generatorExtract`
+- **Clé de configuration** : `extracts`
+
+### Structure Technique
+
+L'interface `ExtractsConfig` permet de définir les différents extracteurs disponibles :
+
+```typescript
+export type ExtractsConfig = Record<
+    string,
+    ExtractFn | { nameDir: string; extractFn: ExtractFn }
+>;
+```
+
+Chaque extracteur est une fonction `ExtractFn` recevant :
+- `findDir` : Pour localiser les chemins de destination.
+- `config` : La configuration actuelle de la fonction.
+
+## Utilisation CLI
+
+### Signature
+
+`grimoire extract [string...] [options]`
+
+### Arguments
+- `[string...]` : Noms des extracteurs à exécuter ou arguments pour Plop.
+
+### Options
+- `-f, --force` : Force l'écrasement des fichiers de destination.
+- `--out <path>` : Définit la destination de l'extraction.
+- `-p, --ignore-prompts` : Utilise les arguments sans passer par les questions interactives.
+
+## Fonctionnement Interne
+
+La commande suit un cycle de vie précis :
+1. **Initialisation** : Recherche de la configuration dans `.cli/extracts.ts`.
+2. **Définition du contexte** : Utilisation de `ExtractFindDir` pour résoudre dynamiquement l'arborescence cible.
+3. **Génération de configuration Plop** : Appel de la fonction `extractFn` pour produire une `Partial<PlopGeneratorConfig>`.
+4. **Exécution** : Le moteur Plop traite l'extraction selon les actions définies (souvent des copies ou des créations de fichiers à partir de fichiers existants).
+
+## Dépendances et Liens
+- Extension du moteur [Plop](https://plopjs.com/).
+- S'appuie sur le noyau [@arckate/grimoire-core](https://www.npmjs.com/).

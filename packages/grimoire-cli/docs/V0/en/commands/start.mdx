@@ -1,0 +1,68 @@
+---
+title: 'Cli'
+sidebar_position: 6.5
+sidebar_label: Start
+description: Orchestration of complex generation workflows (Starters) combining initializations, generators, and interactive prompts.
+---
+
+# Guided Workflow Command (Start)
+
+The `start` command is the most advanced orchestrator of the CLI. It allows for defining "Starters," which are sequences of steps (`steps`) that can chain file creation, project initializations, and information gathering via interactive prompts. Documentation updated in `janvier` 2026.
+
+## Global Configuration
+
+The command is registered with the following parameters:
+- **Command Function**: `cmdStart`
+- **Associated Generator**: `generatorGlobal`
+- **Configuration Key**: `starters`
+
+## Technical Structure
+
+### Starter Configuration (`StarterConfig`)
+
+A Starter groups together initialization configurations, standard generators, and step-by-step scenarios.
+
+```typescript
+export interface StarterConfig extends Record<string, unknown> {
+    inits: InitsConfig;
+    generators: GeneratorsConfig;
+    starters: Record<string, Starters>;
+}
+```
+
+### Step Definition (`Starters`)
+
+Steps are defined sequentially (`step1`, `step2`, etc.). Each step can be:
+- **CmdPlopParams**: A call to a simple generator.
+- **CmdInitParams**: A call to an initialization function.
+- **MultiChoice / Input**: User data collection to influence subsequent steps.
+- **StarterLink**: Redirection to another Starter.
+
+```typescript
+export type Starters = Record<`step${number}`, StarterParams>;
+```
+
+## CLI Usage
+
+### Signature
+
+`grimoire start [string...] [options]`
+
+### Arguments
+- `[string...]`: Initial arguments passed to the Starter engine.
+
+### Options
+- `--out <path>`: Global destination path (default: current directory).
+- `-f, --force`: Forces overwriting of existing files during all steps of the workflow.
+
+## Internal Workings
+
+The `cmdStart` function executes a complex cycle:
+1. **Configuration Extraction**: The command separately extracts and merges `inits`, `generators`, and `starters` from the `starters.ts` file.
+2. **Context Construction**: Analyzes passed arguments to prepare variable injection into the steps.
+3. **Execution via `constructorPlop`**: Unlike simple commands, it uses a dedicated constructor that manages the step state machine (`StarterParams`), resolves filters (`Filter`), and applies forced values (`SetValues`).
+4. **Orchestration**: Chains calls to `cmdPlop` or initialization functions according to the logic defined in each `step`.
+
+## Dependencies and Links
+- Relies on [Plop](https://plopjs.com/) engines and `inits` and `generators` configurations.
+- Uses the orchestration engine from [@arckate/grimoire-core](https://www.npmjs.com/).

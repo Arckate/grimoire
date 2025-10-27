@@ -1,0 +1,57 @@
+---
+title: 'Cli'
+sidebar_position: 3.9
+sidebar_label: Prompts
+description: Definition of custom prompts for user interactions.
+---
+
+### Prompts
+
+The `prompts` key is used to define and register custom question types for your generators. It works similarly to `setPrompt` in **plop.js**, but it is not tied to any specific prompt library.
+
+#### Object Structure
+
+```typescript
+    prompts: { 
+        [promptName: string]: Fn 
+    }
+```
+
+#### Role of the Property
+
+This section allows you to extend the input types available during command execution. You can add specific Command Line Interface (CLI) components that are not included by default.
+
+#### Usage Example
+
+In your `.cli/config.ts` file, you can register external or custom prompt types:
+
+```typescript
+    import { 
+        input, 
+        Checkbox, 
+        Confirm, 
+        Editor, 
+        Expand, 
+        List, 
+        Number, 
+        Password, 
+        RawList 
+    } from './prompts';
+
+    const config = {
+        // ...
+        prompts: {
+            input, 
+            Checkbox, 
+            Confirm, 
+            Editor, 
+            Expand, 
+            List, 
+            Number,
+            Password,
+            RawList,
+        }
+    };
+```
+
+Once registered, these prompts become accessible in the configuration of any command via the `type` property of the prompt object.

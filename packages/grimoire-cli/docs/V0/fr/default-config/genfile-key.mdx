@@ -1,0 +1,47 @@
+---
+title: 'Cli'
+sidebar_position: 3.4
+sidebar_label: PlanExt, planType
+description: Documentation des paramètres appliqués aux fichiers gen.\{json,yaml\} par la CLI.
+---
+
+# Configuration des Fichiers de Génération
+
+Ces clés permettent de définir le format et la structure des fichiers de données générés par la CLI (fichiers de type `.gen`).
+
+## Propriétés et Valeurs par défaut
+
+### `planExt`
+- **Type** : `string`
+- **Valeur par défaut** : `"json"`
+- **Description** : Définit l'extension des fichiers générés. Cela permet de basculer entre différents formats de données, par exemple pour obtenir un fichier `.plan.json` ou `.plan.yaml`.
+
+### `planType`
+- **Type** : `string` (e.g., `"camelCase"`, `"pascalCase"`, `"snakeCase"`)
+- **Valeur par défaut** : `"camelCase"`
+- **Description** : Définit la convention de nommage (casse) utilisée pour les clés à l'intérieur des fichiers générés.
+
+---
+
+## Exemple d'application
+
+Si vous configurez la CLI pour générer des fichiers YAML en PascalCase :
+
+**Configuration :**
+```json
+    {
+        "planExt": "yaml",
+        "planType": "pascalCase"
+    }
+```
+
+**Résultat généré (`exemple.plan.yaml`) :**
+```yaml
+# Les clés sont converties en PascalCase
+UserInformation:
+    FirstName: "John"
+    LastName: "Doe"
+```
+
+- **Nom du fichier** : L'extension est devenue `.yaml`.
+- **Format des clés** : Les propriétés respectent la règle **PascalCase**.

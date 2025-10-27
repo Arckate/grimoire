@@ -1,0 +1,53 @@
+---
+title: 'Cli'
+sidebar_position: 7.3
+sidebar_label: copy
+description: Documentation de l'action personnalisée copy pour la duplication de fichiers physiques via Plop.
+---
+
+# Action : copy
+
+L'action `copy` est une extension personnalisée pour Plop permettant de copier des fichiers statiques depuis le répertoire de Plop vers une destination dans le projet, sans passer par le moteur de template pour le contenu du fichier.
+
+## Signature de la fonction
+
+```typescript
+export const copy: CustomActionFunction = (answers, config, plop) => {
+    // Résolution des chemins et copie physique du fichier
+}
+```
+
+## Paramètres de configuration
+
+L'objet `config` accepte les propriétés suivantes :
+
+| Propriété | Type | Description |
+| :--- | :--- | :--- |
+| `src` | `string` | Chemin source du fichier (supporte Handlebars pour le nom du fichier). |
+| `dest` | `string` | Chemin de destination (supporte Handlebars). |
+| `force` | `boolean` | Si `true`, écrase le fichier de destination s'il existe déjà. |
+
+## Fonctionnement technique
+
+1. **Résolution Source** : Le chemin source est résolu relativement à l'emplacement du fichier Plop (`plop.getPlopfilePath()`).
+2. **Résolution Destination** : Le chemin de destination est résolu relativement à la base du projet (`plop.getDestBasePath()`).
+3. **Validation** : Si `force` est à `false` et que le fichier de destination existe, l'action lève une exception.
+4. **Préparation** : La fonction crée automatiquement les répertoires parents de la destination de manière récursive via `fs.mkdirSync`.
+5. **Exécution** : Le fichier est copié physiquement via `fs.copyFileSync`, garantissant une copie bit à bit (idéal pour les images ou binaires).
+
+## Exemple d'utilisation
+
+```typescript
+{
+  type: 'copy',
+  src: 'assets/logo.png',
+  dest: 'public/assets/{{name}}-logo.png',
+  force: false
+}
+```
+
+## Liens utiles
+
+- [Documentation Plop.js](https://plopjs.com/)
+- [Node.js fs.copyFileSync](https://nodejs.org/)
+- [Node.js fs.mkdirSync](https://nodejs.org/)

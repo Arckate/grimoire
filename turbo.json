@@ -1,0 +1,22 @@
+{
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**", "build/**"]
+        },
+        "test": {
+            "dependsOn": ["^test"],
+            "outputs": ["coverage/**"]
+        },
+        "lint": {
+            "outputs": []
+        },
+        "lint:fix": {
+            "outputs": []
+        },
+        "publish": {
+            "dependsOn": ["^build", "^test"],
+            "outputs": []
+        }
+    }
+}

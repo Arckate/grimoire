@@ -1,0 +1,73 @@
+.sectionAction {
+    position: relative;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sectionAction :global(.background) {
+    position: absolute; 
+    width: 100%;
+    height: 100%;
+} 
+
+.sectionAction :global(.container) {
+    position: absolute; 
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+} 
+
+.sectionAction :global(.container .container_bg){
+    height: 100%;
+    width: 70%;
+    background-color: white;
+    padding: 5rem;
+} 
+@media (max-width: 996px) {
+    .sectionAction :global(.container .container_bg) {
+		padding: 1.5rem;
+        width: 90%;
+    }
+}
+
+
+.sectionAction :global(.container .container_bg .button) {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
+
+.sectionAction :global(.container .container_bg .button .icon){
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.sectionAction :global(.container .container_bg .button .icon.left){
+    margin-right: 0.5rem;
+}
+
+.sectionAction :global(.container .container_bg .button .icon.right){
+    margin-left: 0.5rem;
+}
+
+
+:global([data-theme="dark"]) .sectionAction :global(.container .container_bg){
+    background-color: var(--ifm-background-color);
+}
+
+
+
+
+
+
+

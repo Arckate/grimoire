@@ -1,0 +1,48 @@
+---
+title: 'Cli'
+sidebar_position: 3.5
+sidebar_label: Processor
+description: Documentation of the file reading and writing logic according to their format.
+---
+
+# Processing Configuration (processor)
+
+The `processor` property is the internal engine that allows the CLI to translate physical files (in the previously chosen format) into usable JavaScript objects, and vice versa.
+
+## How It Works
+
+This key establishes the link between the extension (`planExt` / `configFileExt`) and the casing format (`planType` / `configFileType`). It defines the methods used to read, write, and transform data.
+
+## Property Structure
+
+### `processor`
+- **Type**: `Object`
+- **Description**: A nested object that maps the file format and naming convention to the corresponding processing functions.
+
+#### Internal configuration example
+
+```javascript
+processor: {
+    json: {
+        camelCase: {
+            read: readCamelCaseJson,         // Reads JSON and converts keys to camelCase
+            write: writeCamelCaseJson,       // Writes the JS object to camelCase JSON
+            stringTo: stringToCamelCaseJson, // Transforms a string into an object
+        },
+    },
+},
+```
+
+## Processing Methods
+
+Each format configuration (for example `json` + `camelCase`) has three essential methods:
+
+1.  **`read`**: Loads the file from the disk and transforms its content into a JavaScript object.
+2.  **`write`**: Takes a JavaScript object and saves it to the disk in the specified format and casing.
+3.  **`stringTo`**: Parses a raw string (often from a template or input) to convert it into a structured object.
+
+---
+
+## Why is this important?
+
+This configuration ensures that if you have defined `planType: "camelCase"`, the CLI will know exactly which function to use so that your final file is correctly formatted. This allows for full extensibility: you can add your own processors for `YAML`, `TOML`, or other casing conventions.

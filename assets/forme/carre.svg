@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50" height="50" version="1.1" viewBox="0 0 13.229 13.229" xmlns="http://www.w3.org/2000/svg">
+<path 
+   transform="matrix(.12295 0 0 .12295 .46699 .46699)" 
+   d="m14.887 0.98277h70.225a13.904 13.904 45 0 1 13.904 13.904v70.225a13.904 13.904 135 0 1-13.904 13.904h-70.225a13.904 13.904 45 0 1-13.904-13.904v-70.225a13.904 13.904 135 0 1 13.904-13.904z" 
+   fill="#2473ff" 
+   stroke-linecap="round" 
+   stroke-linejoin="round" stroke-width="8.0895" 
+   style="paint-order:fill markers stroke"/>
+</svg>

@@ -1,0 +1,73 @@
+.section {
+    height: 500px;
+    display: flex;
+}
+
+.section div {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.section :global(.img) {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.section :global(.img) p {
+    margin: 0;
+    width: 100%;
+    height: 100% ;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.section :global(.img.width100) img {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.section :global(.img.height100) img {
+    width: auto !important;
+    height: 100% !important;
+}
+
+.section :global(.text) {
+    width: 100%;
+    padding: 1rem 4rem;
+    justify-content: center;
+    align-items: start;
+}
+
+
+@media (max-width: 996px) {
+    .section {
+        height: auto;
+        flex-direction: column;
+    }
+    .section :global(.text) {
+        padding: 2rem 1rem;
+    }
+}
+@media (min-width: 997px) {
+    .section:global(.revert .text)  {
+        order: 2
+    }
+    .section:global(.revert .img)  {
+        order: 1
+    }
+}
+
+
+
+
+
+
+

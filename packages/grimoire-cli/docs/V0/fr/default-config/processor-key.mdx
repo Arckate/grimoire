@@ -1,0 +1,48 @@
+---
+title: 'Cli'
+sidebar_position: 3.5
+sidebar_label: Processor
+description: Documentation de la logique de lecture et d'écriture des fichiers selon leur format.
+---
+
+# Configuration du Traitement (processor)
+
+La propriété `processor` est le moteur interne qui permet à la CLI de traduire les fichiers physiques (au format choisi précédemment) en objets JavaScript exploitables, et inversement.
+
+## Fonctionnement
+
+Cette clé fait le lien entre l'extension (`planExt` / `configFileExt`) et le format de casse (`planType` / `configFileType`). Elle définit les méthodes utilisées pour lire, écrire et transformer les données.
+
+## Structure de la Propriété
+
+### `processor`
+- **Type** : `Object`
+- **Description** : Un objet imbriqué qui mappe le format de fichier et la convention de nommage aux fonctions de traitement correspondantes.
+
+#### Exemple de configuration interne
+
+```javascript
+processor: {
+    json: {
+        camelCase: {
+            read: readCamelCaseJson,         // Lit le JSON et convertit les clés en camelCase
+            write: writeCamelCaseJson,       // Écrit l'objet JS en JSON camelCase
+            stringTo: stringToCamelCaseJson, // Transforme une chaîne de caractères en objet
+        },
+    },
+},
+```
+
+## Méthodes de traitement
+
+Chaque configuration de format (par exemple `json` + `camelCase`) dispose de trois méthodes essentielles :
+
+1.  **`read`** : Charge le fichier depuis le disque et transforme son contenu en objet JavaScript.
+2.  **`write`** : Prend un objet JavaScript et l'enregistre sur le disque dans le format et la casse spécifiés.
+3.  **`stringTo`** : Analyse une chaîne de caractères brute (souvent issue d'un template ou d'une saisie) pour la convertir en objet structuré.
+
+---
+
+## Pourquoi est-ce important ?
+
+C'est cette configuration qui garantit que si vous avez défini `planType: "camelCase"`, la CLI saura exactement quelle fonction utiliser pour que votre fichier final soit correctement formaté. Cela permet une extensibilité totale : vous pouvez ajouter vos propres processeurs pour le `YAML`, le `TOML` ou d'autres conventions de casse.

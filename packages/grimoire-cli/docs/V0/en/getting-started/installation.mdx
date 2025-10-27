@@ -1,0 +1,103 @@
+---
+title: 'Cli'
+sidebar_position: 2.1
+sidebar_label: How to install Grimoire
+description: How to install Grimoire and start using it.
+---
+
+# How to install Grimoire 
+
+## Installing the CLI
+
+If you want to install Grimoire, we recommend doing it globally:
+
+**Global** installation
+
+<Tabs groupId="operating-systems">
+  <TabItem value="pnpm" label="pnpm">
+    ```bash
+    pnpm add -g @arckate/grimoire-cli
+    grim --help
+    ```
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+    ```bash
+    yarn global add @arckate/grimoire-cli
+    grim --help
+    ```
+  </TabItem>
+  <TabItem value="npm" label="npm">
+    ```bash
+    npm install -g @arckate/grimoire-cli
+    grim --help
+    ```
+  </TabItem>
+  <TabItem value="bun" label="bun">
+    ```bash
+    bun add -g @arckate/grimoire-cli
+    grim --help
+    ```
+  </TabItem>
+</Tabs>
+
+Or **local** installation
+
+<Tabs groupId="operating-systems">
+  <TabItem value="pnpm" label="pnpm">
+    ```bash
+    pnpm add -D @arckate/grimoire-cli
+    pnpm exec grim --help
+    ```
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+    ```bash
+    yarn add -D @arckate/grimoire-cli
+    yarn grim --help
+    ```
+  </TabItem>
+  <TabItem value="npm" label="npm">
+    ```bash
+    npm install -D @arckate/grimoire-cli
+    npx grim --help
+    ```
+  </TabItem>
+  <TabItem value="bun" label="bun">
+    ```bash
+    bun add -d @arckate/grimoire-cli
+    bunx grim --help
+    ```
+  </TabItem>
+</Tabs>
+
+## Initializing a project
+
+:::note
+
+From this point on, we assume that you have chosen to install **Grimoire** globally to keep the documentation concise.
+Of course, local usage will still work as shown above.
+In case of a bug, please create an [**Issue on GitHub**](https://github.com/Arckate/grimoire/issues).
+
+:::
+
+```bash
+  grim init
+```
+
+You should see the following file structure appear:
+
+```
+  └── 📁 [my project]
+      ├──📁 .cli
+      └──📄config.cli.json
+```
+The **.cli** folder should be empty.
+
+The **config.cli.json** file should contain the key **\{"root": true\}**.
+
+
+:::info
+
+You are currently reading the documentation for the Grimoire CLI generation framework. This product comes entirely empty, and that is normal, as its purpose is to serve as the foundation for your own tool.
+In the next section, we will show you how to replace the **grim** keyword with your own custom keyword, allowing you to build your own tool while keeping the power of Grimoire and default package updates.
+
+:::

@@ -1,0 +1,60 @@
+---
+title: 'Cli'
+sidebar_position: 7.2
+sidebar_label: addTo
+description: Documentation de l'action personnalisée addTo pour la transformation et l'écriture de fichiers via des processeurs.
+---
+
+# Action : addTo
+
+L'action `addTo` est une extension évoluée pour Plop permettant de lire un template, de le transformer via un processeur spécifique (défini dans `@arckate/grimoire-core`), puis de l'écrire à une destination précise.
+
+## Signature de la fonction
+
+```typescript
+export const addTo: CustomActionFunction = (answers, config, plop) => {
+    // Résolution, transformation par processeur et écriture
+}
+```
+
+## Paramètres de configuration
+
+L'objet `config` accepte les propriétés suivantes :
+
+| Propriété | Type | Description |
+| :--- | :--- | :--- |
+| `templateFile` | `string` | Chemin vers le fichier source (supporte Handlebars). |
+| `path` | `string` | Chemin de destination du fichier final (supporte Handlebars). |
+| `typeFileFrom` | `string` | Type de contenu source pour le processeur. |
+| `typeFileTo` | `string` | Type de contenu cible pour le processeur. |
+| `force` | `boolean` | Si `true`, écrase le fichier s'il existe déjà. |
+
+## Fonctionnement technique
+
+1. **Résolution des chemins** : La fonction résout les chemins absolus pour le template (via `plop.getPlopfilePath()`) et la destination (via `plop.getDestBasePath()`).
+2. **Vérification d'existence** : Si `force` est à `false` et que le fichier cible existe, une erreur est levée.
+3. **Système de Processeur** : 
+   - L'action récupère le `processor` depuis les inclusions par défaut de Plop.
+   - Elle identifie les extensions de fichier (`extFrom` et `extTo`).
+   - Elle utilise la méthode `stringTo` pour transformer le contenu du template.
+   - Elle utilise la méthode `write` pour enregistrer le résultat sur le disque.
+4. **Gestion d'erreur** : Si le processeur ou les méthodes requises pour les extensions/types donnés sont absents, l'action lève une exception.
+
+## Exemple d'utilisation
+
+```typescript
+{
+  type: 'addTo',
+  templateFile: 'templates/schema.json.hbs',
+  path: 'src/generated/{{name}}.ts',
+  typeFileFrom: 'json',
+  typeFileTo: 'typescript',
+  force: false
+}
+```
+
+## Liens utiles
+
+- [Documentation Plop.js](https://plopjs.com/)
+- [Node.js Path API](https://nodejs.org/)
+- [Node.js File System API](https://nodejs.org/)

@@ -1,0 +1,62 @@
+---
+title: 'Cli'
+sidebar_position: 3.6
+sidebar_label: Commands
+description: Documentation de la structure des commandes et de leur logique d'exécution.
+---
+
+# Registre des Commandes (commands)
+
+La propriété `commands` définit l'ensemble des actions que votre CLI peut exécuter. Elle fait le pont entre le nom de la commande saisie par l'utilisateur et les fonctions logiques internes.
+
+## Structure de l'objet
+
+### `commands`
+- **Type** : `Object`
+- **Description** : Un dictionnaire où chaque clé représente le nom d'une commande et chaque valeur contient sa configuration.
+
+#### Schéma technique
+```javascript
+commands: {
+    [nomCommande: string]: {
+        cmdFn: Function,       // Fonction de pilotage de la commande
+        generatorFn: Function, // Fonction de génération associée
+        config: string,        // Clé de référence dans la configuration
+    },
+},
+```
+
+---
+
+## Détails des propriétés par commande
+
+### `cmdFn`
+Il s'agit de la fonction d'entrée principale. Elle reçoit les arguments du terminal et orchestre le flux d'exécution (par exemple, appeler les prompts, valider les entrées).
+
+### `generatorFn`
+Cette fonction contient la logique de création. Elle est généralement appelée par `cmdFn` pour manipuler les templates, transformer les données et écrire les fichiers finaux sur le disque.
+
+### `config`
+Cette chaîne de caractères définit le nom de la propriété dans vos fichiers de configuration où la CLI doit aller puiser les données spécifiques à cette commande.
+
+---
+
+## Exemple concret : La commande `init`
+
+Voici comment est déclarée la commande d'initialisation par défaut :
+
+```javascript
+commands: {
+    init: {
+        cmdFn: cmdInit,
+        generatorFn: generatorInit,
+        config: "inits",
+    },
+},
+```
+
+**Explication du fonctionnement :**
+1. L'utilisateur tape la commande `init`.
+2. La CLI exécute la fonction **`cmdInit`**.
+3. Pour fonctionner, cette commande va chercher ses paramètres et templates dans la section **`inits`** de vos fichiers de configuration.
+4. Elle utilise **`generatorInit`** pour produire les fichiers initiaux du projet.

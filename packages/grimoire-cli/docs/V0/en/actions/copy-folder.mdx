@@ -1,0 +1,53 @@
+---
+title: 'Cli'
+sidebar_position: 7.4
+sidebar_label: copyFolder
+description: Documentation for the copyFolder custom action for recursive directory duplication via Plop.
+---
+
+# Action: copyFolder
+
+The `copyFolder` action is a custom extension for Plop used to copy an entire directory (including subfolders and files) from the Plop directory to a destination within the project.
+
+## Function Signature
+
+```typescript
+export const copyFolder: CustomActionFunction = (answers, config, plop) => {
+    // Path resolution and recursive folder copy
+}
+```
+
+## Configuration Parameters
+
+The `config` object accepts the following properties:
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `src` | `string` | Source folder path (supports Handlebars). |
+| `dest` | `string` | Destination path (supports Handlebars). |
+| `force` | `boolean` | If `true`, ignores the error if the destination folder already exists. |
+
+## Technical Behavior
+
+1. **Source Resolution**: The source folder path is resolved relative to the Plop file location (`plop.getPlopfilePath()`).
+2. **Destination Resolution**: The destination path is resolved relative to the project root (`plop.getDestBasePath()`).
+3. **Validation**: If `force` is set to `false` and the destination folder already exists, the action throws an exception to prevent accidental overwrites.
+4. **Parent Creation**: The function initializes the destination folder using `fs.mkdirSync` with the `recursive: true` option.
+5. **Recursive Copy**: Uses `fs.cpSync` with the `{ recursive: true }` option to duplicate the entire source tree to the destination.
+
+## Usage Example
+
+```typescript
+{
+  type: 'copyFolder',
+  src: 'templates/starter-kit',
+  dest: 'packages/{{kebabCase name}}',
+  force: false
+}
+```
+
+## Useful Links
+
+- [Plop.js Documentation](https://plopjs.com/)
+- [Node.js fs.cpSync](https://nodejs.org/)
+- [Node.js fs.mkdirSync](https://nodejs.org/)

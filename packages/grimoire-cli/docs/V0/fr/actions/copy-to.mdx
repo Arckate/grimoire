@@ -1,0 +1,63 @@
+---
+title: 'Cli'
+sidebar_position: 7.5
+sidebar_label: copyTo
+description: Documentation de l'action personnalisée copyTo pour la conversion et la copie de fichiers via des processeurs.
+---
+
+# Action : copyTo
+
+L'action `copyTo` est une extension avancée pour Plop qui permet de copier un fichier source tout en le transformant d'un format à un autre (par exemple, de JSON vers TypeScript) en utilisant les processeurs de `@arckate/grimoire-core`.
+
+## Signature de la fonction
+
+```typescript
+export const copyTo: CustomActionFunction = (answers, config, plop) => {
+    // Résolution, lecture via processeur et écriture convertie
+}
+```
+
+## Paramètres de configuration
+
+L'objet `config` accepte les propriétés suivantes :
+
+| Propriété | Type | Description |
+| :--- | :--- | :--- |
+| `src` | `string` | Chemin du fichier source (supporte Handlebars). |
+| `typeFileFrom` | `string` | Type de contenu source pour le processeur. |
+| `nameFileTo` | `string` | Nom du fichier de destination (sans extension, supporte Handlebars). |
+| `extFileTo` | `string` | Extension du fichier de destination (ex: `ts`). |
+| `typeFileTo` | `string` | Type de contenu cible pour le processeur. |
+| `force` | `boolean` | Si `true`, écrase le fichier de destination s'il existe déjà. |
+
+## Fonctionnement technique
+
+1. **Résolution des Chemins** : 
+   - La source est résolue par rapport au chemin du fichier Plop.
+   - La destination est construite en combinant `nameFileTo` et `extFileTo`, puis résolue par rapport à la base du projet.
+2. **Validation d'Existence** : Si `force` est à `false` et que le fichier cible existe, une erreur est levée.
+3. **Système de Processeur** :
+   - L'action récupère le `processor` global.
+   - Elle utilise la méthode `read` associée à l'extension source et au `typeFileFrom`.
+   - Elle utilise la méthode `write` associée à `extFileTo` et `typeFileTo`.
+4. **Exécution** : Le répertoire de destination est créé récursivement, le fichier est lu et transformé, puis écrit sur le disque.
+
+## Exemple d'utilisation
+
+```typescript
+{
+  type: 'copyTo',
+  src: 'data/config.json',
+  typeFileFrom: 'json',
+  nameFileTo: 'src/config/settings',
+  extFileTo: 'ts',
+  typeFileTo: 'typescript',
+  force: false
+}
+```
+
+## Liens utiles
+
+- [Documentation Plop.js](https://plopjs.com/)
+- [Node.js Path API](https://nodejs.org/)
+- [Node.js File System API](https://nodejs.org/)

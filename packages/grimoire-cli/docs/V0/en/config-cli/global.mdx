@@ -1,0 +1,32 @@
+---
+title: 'Cli'
+sidebar_position: 4.1
+sidebar_label: Global Information
+description: Global description of the config.cli.json file
+---
+
+# Global Information on config.cli.json
+
+The `config.cli.json` file serves as a marker and quick configuration for the project. It allows **Grimoire** to identify the project's root and define global file generation preferences.
+
+## File Structure
+
+Here are the main keys that make up this configuration file:
+
+```json
+  {
+    "root": boolean,
+    "typeGen": string,
+    "planExt": string,
+    "planType": string
+  }
+```
+
+## A Non-Unique File (Monorepo Management)
+
+This file is not unique within an architecture. In a monorepo context, you can create one for each `package`, `apps`, or `ui` library.
+
+ *   **The Root File**: The `config.cli.json` file located at the root of your monorepo must have the `"root": true` key. It serves as the main anchor point for the entire system.
+ *   **Child Files**: In subfolders (packages, apps), you can add other `config.cli.json` files without the `root` key (or with `root: false`). These files allow you to override or define specific values (like `planExt` or `typeGen`) specific to that current folder.
+
+Each section will be detailed in its respective part to further explore the available options.

@@ -1,0 +1,36 @@
+.multiSelect :global(.select__control){
+	background-color: var(--ifm-color-emphasis-100);
+}
+
+.multiSelect :global(.select__menu){
+	background-color: var(--ifm-color-emphasis-100);
+}
+
+.multiSelect :global(.select__multi-value){
+	background-color: var(--ifm-color-emphasis-200);
+}
+
+.multiSelect :global(.select__multi-value .select__multi-value__label){
+	color: var(--ifm-font-color-base);
+}
+
+.multiSelect label{
+	font-weight: 700;
+}
+
+.multiSelect :global(.multi-select){
+	min-width: 15rem;
+}
+
+.multiSelect :global(.select__control--is-focused:hover){
+	border-color: var(--ifm-color-primary);
+}
+
+.multiSelect :global(.select__control--is-focused){
+	border-color: var(--ifm-color-primary);
+	box-shadow: 0 0 0 1px var(--ifm-color-primary);
+}
+
+.multiSelect :global(.select__option--is-focused){
+	background-color: #ff16b359;
+}

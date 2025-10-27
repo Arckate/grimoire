@@ -1,0 +1,2 @@
+pnpm test:changed
+node .scripts/check-updates.mjs

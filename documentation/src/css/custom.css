@@ -1,0 +1,288 @@
+@font-face {
+	font-family: "MomoTrustDisplay";
+	src: url("/fonts/MomoTrustDisplay.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+/* Light (300) */
+@font-face {
+	font-family: "Ubuntu";
+	src: url("/fonts/Ubuntu/Ubuntu-Light.ttf") format("truetype");
+	font-weight: 300;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Ubuntu";
+	src: url("/fonts/Ubuntu/Ubuntu-LightItalic.ttf") format("truetype");
+	font-weight: 300;
+	font-style: italic;
+}
+
+/* Regular (400) */
+@font-face {
+	font-family: "Ubuntu";
+	src: url("/fonts/Ubuntu/Ubuntu-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Ubuntu";
+	src: url("/fonts/Ubuntu/Ubuntu-Italic.ttf") format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+
+/* Medium (500) */
+@font-face {
+	font-family: "Ubuntu";
+	src: url("/fonts/Ubuntu/Ubuntu-Medium.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Ubuntu";
+	src: url("/fonts/Ubuntu/Ubuntu-MediumItalic.ttf") format("truetype");
+	font-weight: 500;
+	font-style: italic;
+}
+
+/* Bold (700) */
+@font-face {
+	font-family: "Ubuntu";
+	src: url("/fonts/Ubuntu/Ubuntu-Bold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Ubuntu";
+	src: url("/fonts/Ubuntu/Ubuntu-BoldItalic.ttf") format("truetype");
+	font-weight: 700;
+	font-style: italic;
+}
+
+/* Thin (100) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-Thin.ttf") format("truetype");
+	font-weight: 100;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-ThinItalic.ttf") format("truetype");
+	font-weight: 100;
+	font-style: italic;
+}
+
+/* ExtraLight (200) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-ExtraLight.ttf") format("truetype");
+	font-weight: 200;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-ExtraLightItalic.ttf") format("truetype");
+	font-weight: 200;
+	font-style: italic;
+}
+
+/* Light (300) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-Light.ttf") format("truetype");
+	font-weight: 300;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-LightItalic.ttf") format("truetype");
+	font-weight: 300;
+	font-style: italic;
+}
+
+/* Regular (400) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-Italic.ttf") format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+
+/* Medium (500) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-Medium.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-MediumItalic.ttf") format("truetype");
+	font-weight: 500;
+	font-style: italic;
+}
+
+/* SemiBold (600) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-SemiBold.ttf") format("truetype");
+	font-weight: 600;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-SemiBoldItalic.ttf") format("truetype");
+	font-weight: 600;
+	font-style: italic;
+}
+
+/* Bold (700) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-Bold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-BoldItalic.ttf") format("truetype");
+	font-weight: 700;
+	font-style: italic;
+}
+
+/* ExtraBold (800) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-ExtraBold.ttf") format("truetype");
+	font-weight: 800;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-ExtraBoldItalic.ttf") format("truetype");
+	font-weight: 800;
+	font-style: italic;
+}
+
+/* Black (900) */
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-Black.ttf") format("truetype");
+	font-weight: 900;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Fira Sans";
+	src: url("/fonts/FiraSans/FiraSans-BlackItalic.ttf") format("truetype");
+	font-weight: 900;
+	font-style: italic;
+}
+
+:root {
+	--ifm-color-primary: #ff16b3;
+	--ifm-color-primary-dark: #e0139f;
+	--ifm-color-primary-darker: #c5118d;
+	--ifm-color-primary-darkest: #9e0d70;
+	--ifm-color-primary-light: #ff3ac0;
+	--ifm-color-primary-lighter: #ff5fcc;
+	--ifm-color-primary-lightest: #ff85d8;
+	--ifm-code-font-size: 95%;
+	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+	--ifm-font-family-base: "Fira Sans", sans-serif;
+	--ifm-subheading-font-family: "Ubuntu", sans-serif;
+	--ifm-heading-font-family: "MomoTrustDisplay", sans-serif;
+	--ifm-heading-font-weight: 400;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme="dark"] {
+	--ifm-color-primary: #ff4fc6;
+	--ifm-color-primary-dark: #e046b2;
+	--ifm-color-primary-darker: #c53e9f;
+	--ifm-color-primary-darkest: #9e327f;
+	--ifm-color-primary-light: #ff72d1;
+	--ifm-color-primary-lighter: #ff95dc;
+	--ifm-color-primary-lightest: #ffb8e7;
+	--docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+html body {
+	/* biome-ignore lint/complexity/noImportantStyles: <force> */
+	font-weight: 400 !important;
+}
+
+.homPage main.margin-vert--lg {
+	/* biome-ignore lint/complexity/noImportantStyles: <force> */
+	margin: 0px !important;
+	/* biome-ignore lint/complexity/noImportantStyles: <force> */
+	margin-bottom: 0px !important;
+	/* biome-ignore lint/complexity/noImportantStyles: <force> */
+	margin-top: 0px !important;
+}
+
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+	font-family: var(--ifm-subheading-font-family);
+}
+
+h1,
+.h1 {
+	font-family: var(--ifm-heading-font-family);
+}
+
+a,
+button,
+label {
+	font-family: var(--ifm-subheading-font-family);
+}
+
+p {
+	font-family: var(--ifm-text-font-family);
+}
+
+.github__link {
+	padding: 0;
+	height: 100%;
+	display: block;
+}
+
+.github__link .github__icon {
+	color: var(--ifm-color-secondary-darker);
+	height: 100%;
+	width: auto;
+}
+
+orama-search-button::part(kyb-shortcut) {
+	background-color: #9e0d70;
+}
+html {
+	position: relative;
+}
+
+@media (max-width: 996px) {
+	.footer__col {
+		flex: 0;
+		flex-basis: content;
+	}
+
+	.row.footer__links {
+		justify-content: center;
+	}
+}

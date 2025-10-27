@@ -1,0 +1,40 @@
+# Node
+node_modules/
+./packages/**/node_modules/
+dist/
+./packages/**/dist/
+tsconfig.tsbuildinfo
+./packages/**/tsconfig.tsbuildinfo
+
+*.log
+./packages/**/*.log
+./packages/**/**/*.log
+
+# Env
+.env
+./packages/**/.env
+.env.local
+./packages/**/.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# pnpm
+.pnpm-store/
+
+# LLM rules (local only)
+.rules/
+
+# custom
+coverage/
+./packages/**/coverage/
+log/**/*.log.txt
+*.log.txt
+.turbo/
+./packages/**/.turbo/
+./documentation/**/.turbo/
+./documentation/**/.docusaurus/

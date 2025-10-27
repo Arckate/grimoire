@@ -1,0 +1,58 @@
+---
+title: 'Cli'
+sidebar_position: 5.11
+sidebar_label: CamelCase
+description: JSON file manipulation utilities ensuring the use of camelCase keys.
+---
+
+# CamelCase JSON Processor
+
+This module provides utilities to read, write, and transform JSON data. Its specific feature is to enforce, via the `RecordCamelCase` type, that the consumed or returned object uses keys formatted in camelCase. Documentation established in `January` 2026.
+
+## Types
+
+### RecordCamelCase\<T, U\>
+An alias for the standard TypeScript `Record<T, U>` utility type. It is used here to ensure that data structures handle keys of type `T` (in camelCase convention) associated with values of type `U`.
+
+## Functions
+
+### ReadCamelCaseJson()
+Reads a JSON file synchronously and returns its content as an object with camelCase keys.
+
+**Parameters:**
+- `path` (string): The path to the JSON file.
+
+**Returns:**
+- `RecordCamelCase<string, string>`: The parsed and typed JSON object.
+
+**Errors:**
+- Throws an error if reading or parsing fails.
+
+---
+
+### WriteCamelCaseJson()
+Receives an object whose keys follow the camelCase convention and writes it to a file in JSON format.
+
+**Parameters:**
+- `path` (string): The destination path.
+- `data` (RecordCamelCase\<string, string\>): The camelCase data to be saved.
+
+**Errors:**
+- Throws an error if the writing process fails.
+
+---
+
+### StringToCamelCaseJson()
+Transforms a raw camelCase JSON string into a typed camelCase JSON object.
+
+**Parameters:**
+- `text` (string): The JSON string to parse.
+
+**Returns:**
+- `RecordCamelCase<string, string>`: The resulting parsed object.
+
+**Errors:**
+- Throws an error if the string is not a valid JSON.
+
+## Dependencies and Links
+- Uses the native module [node:fs](https://nodejs.org/).

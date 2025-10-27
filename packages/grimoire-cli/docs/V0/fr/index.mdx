@@ -1,0 +1,53 @@
+---
+title: 'Cli'
+sidebar_position: 1
+sidebar_label: Pourquoi créer un nouvel outil CLI ?
+---
+
+# Pourquoi créer un nouvel outil CLI ?
+
+Et oui, encore un outil CLI alors que personne ne les utilise ! 😂 J'ai d'abord voulu utiliser les outils existants comme **[Plop.js](https://plopjs.com/)**, **[Yeoman.io](https://yeoman.io/)** ou **[Hygen.io](https://github.com/jondot/hygen#readme)**. Mon choix s'est arrêté sur **Plop.js** car il semblait être, au premier abord, le bon compromis entre simplicité et extensibilité.
+
+Très vite, je me suis heurté aux limites de **Plop.js** qui m'ont forcé à créer un wrapper. Mon objectif étant de chaîner des générateurs, je suis passé sur **[node-plop](https://github.com/plopjs/plop/tree/main/packages/node-plop)**. Une fois ce wrapper terminé, je me suis rendu compte que **node-plop** avait des limitations dues à l'objectif même de simplicité du framework. J'ai donc choisi de partir sur une approche différente, en m'inspirant des nombreux points forts de cet outil pour créer **Grimoire**. 
+
+## Pourquoi choisir **Grimoire** ?
+
+### Ce que je vais garder de node-plop :
+
+ - La syntaxe des **generators**
+ - La logique d'ajout d'**Actions** et de **Prompts**
+ - **Handlebars** ainsi que les **Helpers** et **Partials**
+ - Les actions par défaut : **Add**, **AddMany**, **Modify** et **Append**
+ - Les prompts de base : **Input**, **Checkbox**, **Confirm**, **Editor**, **Expand**, **List**, **Number**, **Password** et **RawList**
+ - Tous les helpers de base : **camelCase**, **snakeCase**, **kebabCase**, **dotCase**, **pathCase**, **pascalCase**, **lowerCase**, **sentenceCase**, **constantCase**, **titleCase** et **pkg**
+ - Le **Bypass** des valeurs par ligne de commande
+
+### Ce que je vais améliorer par rapport à node-plop :
+
+ - **Inquirer** ne sera plus l'unique outil utilisable pour les prompts. Par défaut, j'utiliserai **[Ink](https://github.com/vadimdemedes/ink)**, mais le système sera ouvert.
+ - **Handlebars** sera l'outil par **défaut**, mais il sera possible d'implémenter d'autres systèmes et même de **choisir le markup par défaut**.
+ - Il sera possible de rendre les **Prompts** et les **Actions** conditionnels selon l'existence d'autres valeurs.
+ - Les **Prompts dynamiques et conditionnels** pourront être bypassés.
+
+### Les nouveautés que j'introduis :
+
+ - **TypeScript par défaut** et non compilé pour une extraction facile à la **[shadcn](https://ui.shadcn.com/)**
+ - Une commande **new** qui permet d'utiliser la liste des générateurs dans la config **generators.ts** 
+ - Une commande **gen** qui permet d'utiliser la liste des générateurs dans la config **generators.ts** via des fichiers **gen.\{json,yaml...\}**  
+ - Une commande **init** qui permet d'initialiser un système avec **Grimoire**
+ - Une commande **extract** qui permet d'extraire des **generators**, **configs**, ou fichiers **gen.\{json,yaml...\}** depuis un dossier courant ou npm 
+ - Une commande **start** qui permet de chaîner les commandes précédentes pour créer des frameworks ou lancer des actions complexes comme configurer un environnement de travail.
+ - De nouvelles actions de copie : **addFolder**, **copyTo**, **addTo**, **copyFolder**, etc.
+ - La possibilité de changer la commande **grim** par votre propre nom.
+
+Le framework grandira en fonction des besoins, mais aura comme objectif de créer un système extensible piloté par la configuration.
+
+## Pourquoi choisir **TypeScript par défaut** ?	
+
+J'aimerais que ce framework devienne une nouvelle voie de partage de code, moins stricte qu'un package npm qui demande une rigueur et une qualité de code très élevées ainsi que de la gestion de communauté. Je m'inspire de **[shadcn](https://ui.shadcn.com/)** car je pense qu'avoir un moyen de partager du code brut est une très bonne chose dans l'écosystème.
+
+Pour simplifier le partage tout en gardant une certaine rigueur, j'ai choisi le **TypeScript non compilé** avec **tsx** ou **bun**.
+
+**Si tout ce que je viens de dire te plaît, alors continue et crée ton premier projet ! =>**
+
+

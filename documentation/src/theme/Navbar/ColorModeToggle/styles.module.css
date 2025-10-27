@@ -1,0 +1,7 @@
+.darkNavbarColorModeToggle:hover {
+	background: var(--ifm-color-gray-800);
+}
+
+.NavbarColor {
+	margin-right: 1.5rem;
+}

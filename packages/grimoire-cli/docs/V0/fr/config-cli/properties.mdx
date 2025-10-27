@@ -1,0 +1,35 @@
+---
+title: 'Cli'
+sidebar_position: 4.2
+sidebar_label: Les propriétés
+description: Explication détaillée des clés du fichier config.cli.json.
+---
+
+### Détail des propriétés de config.cli.json
+
+Le fichier `config.cli.json` permet d'ajuster finement le comportement de Grimoire pour chaque dossier de votre projet.
+
+#### root
+
+- **Type** : `boolean`
+- **Description** : Définit si le dossier actuel est considéré comme la racine (root) du projet. 
+- **Usage** : Indispensable à la racine de votre monorepo pour permettre au CLI de localiser le dossier central `.cli`.
+
+#### typeGen
+
+- **Type** : `string`
+- **Description** : Définit le groupe de générateurs à utiliser par défaut dans ce répertoire.
+- **Lien avec la configuration** : Cette valeur doit correspondre à l'une des clés définies dans votre objet `GeneratorsConfig` (ex: `"react"`, `"testReact"`).
+- **Exemple** : Si vous réglez `"typeGen": "react"`, les commandes de génération utiliseront prioritairement les templates du groupe `react`.
+
+#### planExt
+
+- **Type** : `string`
+- **Description** : Définit l'extension par défaut des fichiers de métadonnées générés (souvent `.gen`).
+- **Usage** : Utilisé pour identifier les fichiers de configuration de génération spécifiques à chaque fichier source.
+
+#### planType
+
+- **Type** : `string`
+- **Description** : Définit le format technique du fichier de génération (généralement `json`).
+- **Usage** : Permet de gérer la manière dont les fichiers `.plan.json` sont lus et écrits par le moteur de Grimoire.

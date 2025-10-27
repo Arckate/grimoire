@@ -1,0 +1,64 @@
+---
+title: 'Cli'
+sidebar_position: 3.7
+sidebar_label: TemplateType, Templating
+description: Documentation of template structure and execution logic.
+---
+
+### TemplateType and Templating
+
+These two keys work together to define how your template files are interpreted and rendered.
+
+#### The `templateType` key
+
+The `templateType` key (type `string`) defines the default rendering engine to be used. It must match one of the keys defined in the `templating` object.
+
+Example: `"templateType": "handlebars"`
+
+#### The `templating` key
+
+The `templating` key is used to define the list of available rendering engines. By default, the system allows the use of engines such as **Handlebars** (used by `plop.js`).
+
+##### Object Structure
+
+```typescript
+    templating: {
+        [engineName: string]: {
+            render: Fn,
+            options: object
+        }
+    }
+```
+
+##### Engine Property Details
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `engineName` | `string` | Name of the rendering engine (e.g., `handlebars`). |
+| `render` | `function` | Callback function to transform the template into final content. |
+| `options` | `object` | Object containing engine configuration settings (helpers, partials, etc.). |
+
+#### Usage Example
+
+In your `.cli/config.ts` file:
+
+```typescript
+    const config = {
+        templateType: 'handlebars',
+        templating: {
+            handlebars: {
+                render: renderHandlebars,
+                options: {
+                    helpers: {
+                        upperCase: (text) => text.toUpperCase()
+                    },
+                    partials: {
+                        myTitlePartial: (text) => "<h1>{{titleCase name}}</h1>"
+                    }
+                }
+            }
+        }
+    }
+```
+
+This configuration allows **Grimoire** to remain completely independent ("white label"), giving you the freedom to use any templating engine.

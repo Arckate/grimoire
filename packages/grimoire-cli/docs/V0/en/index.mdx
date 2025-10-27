@@ -1,0 +1,52 @@
+---
+title: 'Cli'
+sidebar_position: 1
+sidebar_label: Why create a new CLI tool?
+---
+
+# Why create a new CLI tool?
+
+And yes, another CLI tool even though "nobody uses them"! 😂 Initially, I wanted to use existing tools like **[Plop.js](https://plopjs.com/)**, **[Yeoman.io](https://yeoman.io/)**, or **[Hygen.io](https://github.com/jondot/hygen#readme)**. I settled on **Plop.js** because it seemed, at first glance, to be the right compromise between simplicity and extensibility.
+
+I quickly hit the limits of **Plop.js**, which forced me to create a wrapper. Since my goal was to chain "generators," I switched to **[node-plop](https://github.com/plopjs/plop/tree/main/packages/node-plop)**. Once this wrapper was finished, I realized that **node-plop** had its own limitations due to the framework's very goal of simplicity. Therefore, I chose to take a different approach, drawing inspiration from the many strengths of this tool to create **Grimoire**.
+
+## Why choose **Grimoire**?
+
+### What I am keeping from node-plop:
+
+ - The **generator** syntax
+ - The logic for adding **Actions** and **Prompts**
+ - **Handlebars** along with **Helpers** and **Partials**
+ - Default actions: **Add**, **AddMany**, **Modify**, and **Append**
+ - Basic prompts: **Input**, **Checkbox**, **Confirm**, **Editor**, **Expand**, **List**, **Number**, **Password**, and **RawList**
+ - All basic helpers: **camelCase**, **snakeCase**, **kebabCase**, **dotCase**, **pathCase**, **pascalCase**, **lowerCase**, **sentenceCase**, **constantCase**, **titleCase**, and **pkg**
+ - Value **Bypass** via command line
+
+### What I am improving compared to node-plop:
+
+ - **Inquirer** will no longer be the only tool used for prompts. By default, I will use **[Ink](https://github.com/vadimdemedes/ink)**, but the system will be open.
+ - **Handlebars** will be the **default** tool, but it will be possible to implement other systems and even **choose the default markup**.
+ - It will be possible to make **Prompts** and **Actions** conditional based on the existence of other values.
+ - **Dynamic** and **conditional** prompts can be bypassed.
+
+### New features I am introducing:
+
+ - **TypeScript by default** and uncompiled for easy extraction, **[shadcn](https://ui.shadcn.com/)** style.
+ - A **new** command to use the list of generators in the **generators.ts** config.
+ - A **gen** command to use the list of generators in the **generators.ts** config via **gen.\{json,yaml...\}** files.
+ - An **init** command to initialize a system with **Grimoire**.
+ - An **extract** command to extract **generators**, **configs**, or **gen.\{json,yaml...\}** files from a current folder or npm.
+ - A **start** command to chain the previous commands and create frameworks or launch complex actions like setting up a workspace.
+ - New copy actions: **addFolder**, **copyTo**, **addTo**, **copyFolder**, etc.
+ - The ability to change the **grim** command to your own custom name.
+
+The framework will grow according to needs, but its objective will be to create an extensible system driven by configuration.
+
+## Why choose **TypeScript by default**?	
+
+I want this framework to become a new way of sharing code—less strict than an "npm package," which requires high rigor, high code quality, and community management. I am inspired by **[shadcn](https://ui.shadcn.com/)** because I believe that having a way to share raw code is a very good thing for the ecosystem.
+
+To simplify sharing while maintaining some rigor, I chose uncompiled **TypeScript** using **tsx** or **bun**.
+
+**If everything I've said sounds good to you, then go ahead and create your first project! =>**
+

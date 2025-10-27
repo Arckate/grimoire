@@ -1,0 +1,62 @@
+---
+title: 'Cli'
+sidebar_position: 7.1
+sidebar_label: addFolder
+description: Documentation de l'action addFolder pour la création de répertoires récursifs avec Plop.
+---
+
+# Action : addFolder
+
+L'action `addFolder` est une extension personnalisée pour Plop permettant de garantir la création d'une structure de dossiers avant d'y injecter des fichiers ou pour initialiser des espaces de travail.
+
+## Signature de la fonction
+
+```typescript
+export const addFolder: CustomActionFunction = (answers, config, plop) => {
+    // Résolution du chemin et création récursive
+}
+```
+
+## Paramètres de configuration
+
+Lorsque vous utilisez cette action dans un générateur, l'objet `config` accepte les propriétés suivantes :
+
+| Propriété | Type | Description |
+| :--- | :--- | :--- |
+| `type` | `string` | Identifiant de l'action (ex: `'addFolder'`). |
+| `dest` | `string` | Chemin de destination (supporte les templates `{{answers}}`). |
+| `force` | `boolean` | Si `true`, ignore l'erreur si le dossier existe déjà. |
+
+## Comportement technique
+
+1. **Traitement du chemin** : La fonction utilise `plop.renderString` pour transformer les variables dynamiques de `config.dest` en chemin réel.
+2. **Normalisation** : Le chemin est joint à la base du projet via `plop.getDestBasePath()`.
+3. **Validation** : Par défaut, si `force` est à `false`, l'action vérifie l'existence du dossier via `fs.existsSync`. Une erreur est levée en cas de collision.
+4. **Création** : Utilise `fs.mkdirSync` avec l'option `recursive: true` pour assurer que toute la hiérarchie de dossiers est créée en une seule opération.
+
+## Exemple d'intégration
+
+```typescript
+// Dans votre fichier plopfile.ts
+import { addFolder } from './actions/addFolder';
+
+export default function (plop: NodePlopAPI) {
+    plop.setActionType('addFolder', addFolder);
+
+    plop.setGenerator('create-module', {
+        prompts: [{ type: 'input', name: 'name', message: 'Nom du module ?' }],
+        actions: [
+            {
+                type: 'addFolder',
+                dest: 'src/modules/{{camelCase name}}',
+                force: false
+            }
+        ]
+    });
+}
+```
+
+## Liens utiles
+
+- [Documentation Plop.js](https://plopjs.com/)
+- [Node.js fs.mkdirSync](https://nodejs.org/)

@@ -1,0 +1,50 @@
+.searchResults {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.searchResults :global(.card__header){
+    font-size: larger;
+    padding: 0.5rem 1rem 0 1rem;
+}
+
+.searchResults :global(.card__body){
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.searchCardFooter {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 22, 179, 0.3);
+}
+
+.searchCardFooter p {
+    margin: 0;
+}
+
+.searchResults :global(.card .highlight--color){
+    background-color: #34c0dc;
+}
+
+.searchResults :global(.card-demo:nth-child(3n-1) .highlight--color){
+    background-color: #fd9567;
+}
+
+.searchResults :global(.card-demo:nth-child(3n) .highlight--color){
+    background-color: #47c83d;
+}
+
+.searchCard {
+    text-decoration: none;
+    color: var(--ifm-font-color-base);
+}
+
+.searchCard:hover :global(.card) {
+    background-color: rgba(71, 71, 72, 0.2);
+}
+

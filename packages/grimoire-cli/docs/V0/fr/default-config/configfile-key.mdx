@@ -1,0 +1,51 @@
+---
+title: 'Cli'
+sidebar_position: 3.3
+sidebar_label: RootKey, configFile...
+description: Documentation des paramètres de structure du fichier de configuration.
+---
+
+# Configuration des Fichiers de Paramètres
+
+Ces clés permettent de définir comment la CLI doit localiser, lire et interpréter son propre fichier de configuration ainsi que les fichiers générés.
+
+## Propriétés et Valeurs par défaut
+
+### `rootKey`
+- **Type** : `string`
+- **Valeur par défaut** : `"root"`
+- **Description** : La clé utilisée pour definir la racine dans vos fichiers de configuration. Elle doit impérativement être écrite en **camelCase**.
+
+
+### `configFile`
+- **Type** : `string`
+- **Valeur par défaut** : `"config.cli"`
+- **Description** : Définit le nom de base du fichier de configuration que la CLI recherchera à la racine de votre projet.
+
+### `configFileExt`
+- **Type** : `string`
+- **Valeur par défaut** : `"json"`
+- **Description** : Définit l'extension du fichier de configuration. Bien que généralement en `json`, cela permet d'assurer la compatibilité avec vos outils de formatage.
+
+### `configFileType`
+- **Type** : `string` (e.g., `"camelCase"`, `"pascalCase"`, `"snakeCase"`)
+- **Valeur par défaut** : `"camelCase"`
+- **Description** : Définit la convention de nommage utilisée pour les clés à l'intérieur du fichier de configuration.
+
+---
+
+## Exemple de correspondance
+
+Si vous utilisez les valeurs par défaut mentionnées ci-dessus, la CLI cherchera un fichier nommé `config.cli.json`. Voici à quoi devrait ressembler la structure interne basée sur ces réglages :
+
+**Fichier : `config.cli.json`**
+```json
+    {
+        "root": true,
+        "planExt": "json",
+        "planType": "camelCase"
+    }
+```
+
+- **Nom du fichier** : Déduit de `configFile` + `configFileExt`.
+- **Format des clés** : Les propriétés comme `planExt` respectent le format défini par `configFileType` (**camelCase**).

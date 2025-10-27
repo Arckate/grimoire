@@ -1,0 +1,58 @@
+---
+title: 'Cli'
+sidebar_position: 6.4
+sidebar_label: Gen
+description: Bulk generation of elements from JSON configuration files.
+---
+
+# File-based Generation Command (Gen)
+
+The `gen` command automates the creation of multiple elements by reading instructions stored in JSON files (typically `gen.json`). It is ideal for mass generation or complex architectures.
+
+## Global Configuration
+
+The command is configured with the following parameters:
+- **Command Function**: `cmdGen`
+- **Global Generator**: `generatorGlobal`
+- **Configuration Key**: `generators`
+
+## Technical Structure
+
+### Generator Configuration (`GeneratorsConfig`)
+
+The `gen` command shares the same configuration structure as the `new` command. It handles both simple and grouped modes:
+
+```typescript
+export type GeneratorsConfig =
+    | {
+            subGenConf: true;
+            [x: string]: Generators | true;
+      }
+    | Generators;
+```
+
+## CLI Usage
+
+### Signature
+
+`grimoire gen [options]`
+
+### Options
+- `--in <path>`: Path to the `.plan.json` file or the folder containing configuration files.
+- `--out <path>`: Global destination path for generated files.
+- `-d, --deep`: Enables the use of the `genLink` key in JSON files for recursive generations.
+- `-i, --ignore-dest`: Ignores the `genDest` key defined in the JSON file to force another destination.
+- `-t, --type-gen <path>`: Filters generators by type/group (if `subGenConf` is active).
+- `-f, --force`: Forces overwriting of existing files.
+
+## Internal Workings
+
+The `cmdGen` function processes data according to the following steps:
+1. **Initialization**: Plop path resolution and loading of generator configuration via `mergeGeneratorConfig`.
+2. **File Reading**: `findFilePlopArgs` scans input files (`--in`) to extract argument lists.
+3. **Recursive Processing**: If the `--deep` option is active, `deepFilePlop` manages links between configuration files.
+4. **Plop Execution**: Launches generation processes for each entry found in the JSON configuration, respecting type filters and specified destinations.
+
+## Dependencies and Links
+- Extension of the [Plop](https://plopjs.com/) engine.
+- Uses the configuration resolution engine from [@arckate/grimoire-core](https://www.npmjs.com/).

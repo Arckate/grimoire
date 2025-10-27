@@ -1,0 +1,79 @@
+---
+title: 'Cli'
+sidebar_position: 6.3
+sidebar_label: New
+description: Création de nouveaux éléments via des générateurs Plop organisés par groupes ou par types.
+---
+
+# Commande de Création (New)
+
+La commande `new` permet de générer de nouveaux éléments (composants, contrôleurs, etc.) en s'appuyant sur des générateurs Plop configurables. Elle supporte une organisation simple ou par sous-groupes de générateurs.
+
+## Configuration Globale
+
+La commande est enregistrée avec les paramètres suivants :
+- **Fonction de commande** : `cmdNew`
+- **Générateur associé** : `generatorGlobal`
+- **Clé de configuration** : `generators`
+
+## Structure Technique
+
+### Types de Configuration (`GeneratorsConfig`)
+
+La configuration peut adopter deux structures grâce à la propriété `subGenConf` :
+
+1. **Mode Groupé** (`subGenConf: true`) : Permet de classer les générateurs par catégories (ex: react, testReact).
+2. **Mode Simple** : Un objet direct associant des clés à des fonctions de génération.
+
+```typescript
+export type GeneratorsConfig =
+    | {
+            subGenConf: true;
+            [x: string]: Generators | true;
+      }
+    | Generators;
+```
+
+### Définition des Générateurs
+
+Chaque générateur est défini par une `GeneratorsFn` :
+
+```typescript
+export type Generators = Record<
+    string,
+    GeneratorsFn | { generatorsFn: GeneratorsFn; nameDir: string }
+>;
+
+interface GeneratorsFnParams {
+    findDir: (extraPath: string) => string;
+    config: FnConfig;
+}
+```
+
+## Utilisation CLI
+
+### Signature
+
+`grimoire new [string...] [options]`
+
+### Arguments
+- `[string...]` : Arguments transmis au générateur Plop pour remplir les templates.
+
+### Options
+- `-t, --type-gen <path>` : Filtre pour choisir un groupe spécifique de générateurs (utile si `subGenConf` est actif).
+- `--out <path>` : Définit le chemin de destination (par défaut : dossier courant).
+- `-f, --force` : Force l'écrasement des fichiers existants.
+- `-p, --ignore-prompts` : Désactive les questions interactives de Plop.
+
+## Fonctionnement Interne
+
+La fonction `cmdNew` orchestre la génération ainsi :
+1. **Résolution des Chemins** : Localise le `plopfile` et le fichier de configuration des générateurs.
+2. **Chargement de la Config** : Récupère et fusionne la configuration via `mergeGeneratorConfig`.
+3. **Filtrage** : Si une option `--type-gen` est fournie, la commande filtre les générateurs correspondants.
+4. **Préparation des Arguments** : Fusionne les arguments de la ligne de commande avec les paramètres ignorés.
+5. **Exécution** : Appelle `cmdPlop` pour lancer la création physique des fichiers.
+
+## Dépendances et Liens
+- Basé sur [Plop](https://plopjs.com/).
+- Utilise les fonctions utilitaires de [@arckate/grimoire-core](https://www.npmjs.com/).

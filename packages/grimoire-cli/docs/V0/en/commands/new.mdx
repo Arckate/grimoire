@@ -1,0 +1,79 @@
+---
+title: 'Cli'
+sidebar_position: 6.3
+sidebar_label: New
+description: Creation of new elements via Plop generators organized by groups or types.
+---
+
+# Creation Command (New)
+
+The `new` command allows for generating new elements (components, controllers, etc.) by relying on configurable Plop generators. It supports both simple organization and sub-groups of generators.
+
+## Global Configuration
+
+The command is registered with the following parameters:
+- **Command Function**: `cmdNew`
+- **Associated Generator**: `generatorGlobal`
+- **Configuration Key**: `generators`
+
+## Technical Structure
+
+### Configuration Types (`GeneratorsConfig`)
+
+The configuration can adopt two structures thanks to the `subGenConf` property:
+
+1. **Grouped Mode** (`subGenConf: true`): Allows classifying generators by categories (e.g., react, testReact).
+2. **Simple Mode**: A direct object mapping keys to generation functions.
+
+```typescript
+export type GeneratorsConfig =
+    | {
+            subGenConf: true;
+            [x: string]: Generators | true;
+      }
+    | Generators;
+```
+
+### Generator Definition
+
+Each generator is defined by a `GeneratorsFn`:
+
+```typescript
+export type Generators = Record<
+    string,
+    GeneratorsFn | { generatorsFn: GeneratorsFn; nameDir: string }
+>;
+
+interface GeneratorsFnParams {
+    findDir: (extraPath: string) => string;
+    config: FnConfig;
+}
+```
+
+## CLI Usage
+
+### Signature
+
+`grimoire new [string...] [options]`
+
+### Arguments
+- `[string...]`: Arguments passed to the Plop generator to populate templates.
+
+### Options
+- `-t, --type-gen <path>`: Filter to choose a specific group of generators (useful if `subGenConf` is active).
+- `--out <path>`: Defines the destination path (default: current directory).
+- `-f, --force`: Forces overwriting of existing files.
+- `-p, --ignore-prompts`: Disables interactive Plop prompts.
+
+## Internal Workings
+
+The `cmdNew` function orchestrates the generation as follows:
+1. **Path Resolution**: Locates the `plopfile` and the generators configuration file.
+2. **Configuration Loading**: Retrieves and merges the configuration via `mergeGeneratorConfig`.
+3. **Filtering**: If a `--type-gen` option is provided, the command filters the corresponding generators.
+4. **Argument Preparation**: Merges command-line arguments with ignored parameters.
+5. **Execution**: Calls `cmdPlop` to trigger the physical creation of files.
+
+## Dependencies and Links
+- Based on [Plop](https://plopjs.com/).
+- Uses utility functions from [@arckate/grimoire-core](https://www.npmjs.com/).

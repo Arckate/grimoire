@@ -1,0 +1,37 @@
+---
+title: 'Cli'
+sidebar_position: 3.2
+sidebar_label: Name, version, description...
+description: Documentation of CLI management properties.
+---
+
+# Identity and Folder Configuration
+
+These keys define your CLI's identity and how it initializes its file references.
+
+## Properties and Default Values
+
+### `name`
+- **Type**: `string`
+- **Default value**: `"grim"`
+- **Description**: The binary name of the command to be called in the terminal.
+
+### `version`
+- **Type**: `string`
+- **Default value**: `"0.0.0"`
+- **Description**: Defines the current version of your CLI tool. It is displayed via the `--version` command.
+
+### `description`
+- **Type**: `string`
+- **Default value**: `"CLI to some JavaScript string utilities"`
+- **Description**: Help text describing the global function of the tool.
+
+### `cliFolder`
+- **Type**: `string`
+- **Default value**: `".cli"`
+- **Description**: Root folder where all your CLI logic is stored (generators, inits, starters, etc.).
+
+### `dirnamesFile`
+- **Type**: `string`
+- **Default value**: `"dirnames"`
+- **Description**: File name (without extension) listing the different directory names (`dirnames`) of the imported NPM packages.

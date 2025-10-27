@@ -1,0 +1,68 @@
+---
+title: 'Cli'
+sidebar_position: 6.5
+sidebar_label: Start
+description: Orchestration de parcours complexes de génération (Starters) combinant initialisations, générateurs et questions interactives.
+---
+
+# Commande de Parcours Guidé (Start)
+
+La commande `start` est l'orchestrateur le plus avancé de la CLI. Elle permet de définir des "Starters", qui sont des suites d'étapes (`steps`) pouvant enchaîner des créations de fichiers, des initialisations de projets et des collectes d'informations via des invites interactives. Documentation mise à jour en `janvier` 2026.
+
+## Configuration Globale
+
+La commande est enregistrée avec les paramètres suivants :
+- **Fonction de commande** : `cmdStart`
+- **Générateur associé** : `generatorGlobal`
+- **Clé de configuration** : `starters`
+
+## Structure Technique
+
+### Configuration du Starter (`StarterConfig`)
+
+Un Starter regroupe à la fois des configurations d'initialisation, des générateurs classiques et des scénarios par étapes.
+
+```typescript
+export interface StarterConfig extends Record<string, unknown> {
+    inits: InitsConfig;
+    generators: GeneratorsConfig;
+    starters: Record<string, Starters>;
+}
+```
+
+### Définition des Étapes (`Starters`)
+
+Les étapes sont définies de manière séquentielle (`step1`, `step2`, etc.). Chaque étape peut être :
+- **CmdPlopParams** : Appel d'un générateur simple.
+- **CmdInitParams** : Appel d'une fonction d'initialisation.
+- **MultiChoice / Input** : Collecte de données utilisateur pour influencer les étapes suivantes.
+- **StarterLink** : Redirection vers un autre Starter.
+
+```typescript
+export type Starters = Record<`step${number}`, StarterParams>;
+```
+
+## Utilisation CLI
+
+### Signature
+
+`grimoire start [string...] [options]`
+
+### Arguments
+- `[string...]` : Arguments initiaux transmis au moteur de Starter.
+
+### Options
+- `--out <path>` : Chemin de destination global (défaut : dossier courant).
+- `-f, --force` : Force l'écrasement des fichiers existants durant toutes les étapes du parcours.
+
+## Fonctionnement Interne
+
+La fonction `cmdStart` exécute un cycle complexe :
+1. **Extraction de Configuration** : La commande extrait et fusionne séparément les `inits`, les `generators` et les `starters` depuis le fichier `starters.ts`.
+2. **Construction du Contexte** : Analyse les arguments passés pour préparer l'injection de variables dans les étapes.
+3. **Exécution via `constructorPlop`** : Contrairement aux commandes simples, elle utilise un constructeur dédié qui gère la machine à états des étapes (`StarterParams`), résout les filtres (`Filter`) et applique les valeurs forcées (`SetValues`).
+4. **Orchestration** : Enchaîne les appels vers `cmdPlop` ou les fonctions d'initialisation selon la logique définie dans chaque `step`.
+
+## Dépendances et Liens
+- S'appuie sur les moteurs [Plop](https://plopjs.com/) et les configurations `inits` et `generators`.
+- Utilise le moteur d'orchestration de [@arckate/grimoire-core](https://www.npmjs.com/).

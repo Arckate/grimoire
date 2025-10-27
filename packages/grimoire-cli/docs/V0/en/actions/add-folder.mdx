@@ -1,0 +1,62 @@
+---
+title: 'Cli'
+sidebar_position: 7.1
+sidebar_label: addFolder
+description: Documentation for the addFolder action for recursive directory creation with Plop.
+---
+
+# Action: addFolder
+
+The `addFolder` action is a custom extension for Plop that ensures the creation of a folder structure before injecting files or for initializing workspaces.
+
+## Function Signature
+
+```typescript
+export const addFolder: CustomActionFunction = (answers, config, plop) => {
+    // Path resolution and recursive creation
+}
+```
+
+## Configuration Parameters
+
+When using this action within a generator, the `config` object accepts the following properties:
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `type` | `string` | Action identifier (e.g., `'addFolder'`). |
+| `dest` | `string` | Destination path (supports `{{answers}}` templates). |
+| `force` | `boolean` | If `true`, ignores the error if the folder already exists. |
+
+## Technical Behavior
+
+1. **Path Processing**: The function uses `plop.renderString` to transform dynamic variables from `config.dest` into an actual path.
+2. **Normalization**: The path is joined to the project root via `plop.getDestBasePath()`.
+3. **Validation**: By default, if `force` is set to `false`, the action checks for the folder's existence using `fs.existsSync`. An error is thrown in case of a collision.
+4. **Creation**: Uses `fs.mkdirSync` with the `recursive: true` option to ensure the entire folder hierarchy is created in a single operation.
+
+## Integration Example
+
+```typescript
+// In your plopfile.ts
+import { addFolder } from './actions/addFolder';
+
+export default function (plop: NodePlopAPI) {
+    plop.setActionType('addFolder', addFolder);
+
+    plop.setGenerator('create-module', {
+        prompts: [{ type: 'input', name: 'name', message: 'Module name?' }],
+        actions: [
+            {
+                type: 'addFolder',
+                dest: 'src/modules/{{camelCase name}}',
+                force: false
+            }
+        ]
+    });
+}
+```
+
+## Useful Links
+
+- [Plop.js Documentation](https://plopjs.com/)
+- [Node.js fs.mkdirSync](https://nodejs.org/)

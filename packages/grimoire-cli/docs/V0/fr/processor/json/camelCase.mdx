@@ -1,0 +1,58 @@
+---
+title: 'Cli'
+sidebar_position: 5.11
+sidebar_label: CamelCase
+description: Utilitaires pour la manipulation de fichiers JSON garantissant l'usage de clés en camelCase.
+---
+
+# Le transformateur JSON CamelCase
+
+Ce module fournit des utilitaires pour lire, écrire et transformer des données JSON. Sa particularité est d'imposer, via le type `RecordCamelCase`, que l'objet consommé ou retourné utilise des clés formatées en camelCase.
+
+## Types
+
+### RecordCamelCase\<T, U\>
+Un alias pour le type utilitaire standard `Record<T, U>` de TypeScript. Il est utilisé ici pour garantir que les structures de données manipulent des clés de type `T` (en convention camelCase) associées à des valeurs de type `U`.
+
+## Fonctions
+
+### ReadCamelCaseJson()
+Lit un fichier JSON de manière synchrone et retourne son contenu sous forme d'objet avec des clés en camelCase.
+
+**Paramètres :**
+- `path` (string) : Le chemin vers le fichier JSON.
+
+**Retourne :**
+- `RecordCamelCase<string, string>` : L'objet JSON parsé et typé.
+
+**Erreurs :**
+- Lance une erreur si la lecture ou le parsing échoue.
+
+---
+
+### WriteCamelCaseJson()
+Reçoit un objet dont les clés respectent la convention camelCase et l'écrit dans un fichier au format JSON.
+
+**Paramètres :**
+- `path` (string) : Le chemin de destination.
+- `data` (RecordCamelCase\<string, string\>) : Les données en camelCase à enregistrer.
+
+**Erreurs :**
+- Lance une erreur si l'écriture échoue.
+
+---
+
+### StringToCamelCaseJson()
+Transforme une chaîne de caractères brute de type JSON camelCase en objet JSON typé pour le camelCase.
+
+**Paramètres :**
+- `text` (string) : La chaîne JSON à parser.
+
+**Retourne :**
+- `RecordCamelCase<string, string>` : L'objet résultant du parsing.
+
+**Erreurs :**
+- Lance une erreur si la chaîne n'est pas un JSON valide.
+
+## Dépendances et Liens
+- Utilise le module natif [node:fs](https://nodejs.org/).

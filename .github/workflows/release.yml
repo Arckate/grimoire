@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Verify tag signature
+        run: node scripts/verify-tag.js
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+
+      - name: Update versions from tag
+        run: node scripts/update-versions.js
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Create PR with version bump
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: bump version to ${{ github.ref_name }}"
+          branch: version-bump/${{ github.ref_name }}
+          title: "chore: bump version to ${{ github.ref_name }}"
+          body: "Automated version bump for release ${{ github.ref_name }}"
+          labels: release
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Enable auto-merge
+        run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash --auto
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Publish all packages
+        run: pnpm turbo run publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}

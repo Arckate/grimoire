@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"lib": ["ESNext", "DOM"],
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"isolatedModules": true,
+		"jsx": "react-jsx",
+		"noEmit": true,
+		"types": ["node", "vitest"],
+		"baseUrl": ".",
+		"paths": {
+			"~/src/*": ["src/*"],
+			"~/.cli/*": [".cli/*"]
+		}
+	},
+	"mdx": { "plugins": ["remark-attr"] },
+	"erasableSyntaxOnly": true,
+	"include": [
+		"src",
+		".cli/**/*",
+		"bin/**/*",
+		"vitest.setup.ts",
+		"vitest.config.ts"
+	],
+	"exclude": ["node_modules"]
+}

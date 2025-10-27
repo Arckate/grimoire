@@ -1,0 +1,60 @@
+---
+title: 'Cli'
+sidebar_position: 3.1
+sidebar_label: Global Information
+description: Global description of the .cli/config.ts file.
+---
+
+# Global Information on .cli/config.ts
+
+The `.cli/config.ts` file centralizes all your tool's settings. It allows you to control the behavior of the generation engine and define the project's naming conventions.
+
+## Core Structure
+
+This block defines your interface's identity and the management of configuration files:
+
+```typescript
+  {
+      name: string,    
+      cliFolder: string,         
+      dirnamesFile: string,  
+      description: string,    
+      version: string,
+      rootKey: string,            
+      configFile: string,     
+      configFileExt: string,  
+      configFileType: string, 
+      planExt: string,     
+      planType: string,    
+      processor: {
+        [x:string]: {
+          [x:string]: {
+            read: Fn,
+            write: Fn,
+            stringTo: Fn,
+          },
+        },
+      },
+      commands: {
+        [x:string]: {
+          cmdFn: Fn,
+          generatorFn: Fn,
+          config: string,
+        },
+      },
+      templateType: string,
+      templating: {
+        [x:string]:{
+          write: fn,
+          options: object
+        }
+      },
+      actions: { [x:string]: Fn },
+      prompts: { [x:string]: Fn }
+  }
+```
+Each section (templating, processor, commands, etc.) will be covered in 
+detailed documentation in its respective part to further explore callback 
+functions (Fn) and available options.
+
+

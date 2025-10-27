@@ -1,0 +1,16 @@
+.searchContentInfo {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color:var(--ifm-color-white)
+}
+
+.searchContentInfo:global(.info-0) {
+    background-color: var(--ifm-color-primary);
+    padding-left: 1rem;
+}
+
+.searchContentInfo:global(.info-1) {
+    background-color: var(--ifm-color-primary-darker);
+    padding-left: 1.5rem;
+}

@@ -1,0 +1,33 @@
+# Node
+node_modules/
+./packages/**/node_modules/
+dist/
+./packages/**/dist/
+tsconfig.tsbuildinfo
+./packages/**/tsconfig.tsbuildinfo
+
+*.log
+./packages/**/*.log
+./packages/**/**/*.log
+
+# Env
+.env
+./packages/**/.env
+.env.local
+./packages/**/.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# pnpm
+.pnpm-store/
+
+# custom
+coverage/*
+./packages/**/coverage/**/*
+log/**/*.log.txt
+*.log.txt

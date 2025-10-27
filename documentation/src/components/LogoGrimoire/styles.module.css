@@ -1,0 +1,56 @@
+.logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.logo img{
+    width: 7rem;
+}
+
+.logoText {
+    padding-left: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+}
+
+.logoText h1 {
+    margin: 0;
+    line-height: 3rem;
+    font-size: 3.9rem;
+}
+.logoText p {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    font-family: var(--ifm-subheading-font-family);
+}
+
+@media (max-width: 996px) {
+    .logoText h1 {
+        line-height: 2rem;
+        font-size: 2.9rem;
+    }
+
+    .logoText p {
+        font-size: 0.7rem;
+        margin-bottom: 0.1rem;
+        margin-left: 0.2rem;
+    }
+
+    .logo img{
+        width: 4rem;
+    }
+
+    .logoText {
+        padding-left: 0.2rem;
+    }
+
+}
+
+
+
+
+

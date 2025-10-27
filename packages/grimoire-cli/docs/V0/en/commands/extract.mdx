@@ -1,0 +1,58 @@
+---
+title: 'Cli'
+sidebar_position: 6.2
+sidebar_label: Extract
+description: Configuration and execution of file extraction via custom Plop generators.
+---
+
+# Extraction Command (Extract)
+
+The `extract` command allows for extracting components or modules into specific folders using transformation functions and generators.
+
+## Configuration
+
+The command is registered in the global configuration with the following properties:
+- **Command Function**: `cmdExtract`
+- **Associated Generator**: `generatorExtract`
+- **Configuration Key**: `extracts`
+
+### Technical Structure
+
+The `ExtractsConfig` interface is used to define the available extractors:
+
+```typescript
+export type ExtractsConfig = Record<
+    string,
+    ExtractFn | { nameDir: string; extractFn: ExtractFn }
+>;
+```
+
+Each extractor is an `ExtractFn` function receiving:
+- `findDir`: To locate destination paths.
+- `config`: The current function configuration.
+
+## CLI Usage
+
+### Signature
+
+`grimoire extract [string...] [options]`
+
+### Arguments
+- `[string...]`: Names of the extractors to execute or arguments for Plop.
+
+### Options
+- `-f, --force`: Forces overwriting of destination files.
+- `--out <path>`: Defines the extraction destination path.
+- `-p, --ignore-prompts`: Uses arguments without going through interactive prompts.
+
+## Internal Workings
+
+The command follows a specific lifecycle:
+1. **Initialization**: Searches for configuration in `.cli/extracts.ts`.
+2. **Context Definition**: Uses `ExtractFindDir` to dynamically resolve the target tree structure.
+3. **Plop Configuration Generation**: Calls the `extractFn` function to produce a `Partial<PlopGeneratorConfig>`.
+4. **Execution**: The Plop engine processes the extraction according to defined actions (often copying or creating files from existing ones).
+
+## Dependencies and Links
+- Extension of the [Plop](https://plopjs.com/) engine.
+- Relies on the [@arckate/grimoire-core](https://www.npmjs.com/) core.

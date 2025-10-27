@@ -1,0 +1,53 @@
+---
+title: 'Cli'
+sidebar_position: 7.3
+sidebar_label: copy
+description: Documentation for the copy custom action for physical file duplication via Plop.
+---
+
+# Action: copy
+
+The `copy` action is a custom extension for Plop used to copy static files from the Plop directory to a destination in the project, bypassing the template engine for the file content.
+
+## Function Signature
+
+```typescript
+export const copy: CustomActionFunction = (answers, config, plop) => {
+    // Path resolution and physical file copy
+}
+```
+
+## Configuration Parameters
+
+The `config` object accepts the following properties:
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `src` | `string` | Source path of the file (supports Handlebars for the filename). |
+| `dest` | `string` | Destination path (supports Handlebars). |
+| `force` | `boolean` | If `true`, overwrites the destination file if it already exists. |
+
+## Technical Behavior
+
+1. **Source Resolution**: The source path is resolved relative to the Plop file location (`plop.getPlopfilePath()`).
+2. **Destination Resolution**: The destination path is resolved relative to the project root (`plop.getDestBasePath()`).
+3. **Validation**: If `force` is set to `false` and the destination file already exists, the action throws an exception.
+4. **Preparation**: The function automatically creates the parent directories of the destination recursively via `fs.mkdirSync`.
+5. **Execution**: The file is physically copied using `fs.copyFileSync`, ensuring a bit-for-bit copy (ideal for images or binaries).
+
+## Usage Example
+
+```typescript
+{
+  type: 'copy',
+  src: 'assets/logo.png',
+  dest: 'public/assets/{{name}}-logo.png',
+  force: false
+}
+```
+
+## Useful Links
+
+- [Plop.js Documentation](https://plopjs.com/)
+- [Node.js fs.copyFileSync](https://nodejs.org/)
+- [Node.js fs.mkdirSync](https://nodejs.org/)

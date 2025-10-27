@@ -1,0 +1,64 @@
+---
+title: 'Cli'
+sidebar_position: 3.6
+sidebar_label: Commands
+description: Documentation of the command structure and their execution logic.
+---
+
+# Command Registry (commands)
+
+Last updated: `` `January` `` 2026.
+
+The `commands` property defines all the actions your CLI can execute. It acts as a bridge between the command name entered by the user and the internal logical functions.
+
+## Object Structure
+
+### `commands`
+- **Type**: `Object`
+- **Description**: A dictionary where each key represents a command name and each value contains its configuration.
+
+#### Technical Schema
+```javascript
+commands: {
+    [commandName: string]: {
+        cmdFn: Function,       // Command steering function
+        generatorFn: Function, // Associated generation function
+        config: string,        // Reference key in the configuration
+    },
+},
+```
+
+---
+
+## Property Details per Command
+
+### `cmdFn`
+This is the main entry function. It receives terminal arguments and orchestrates the execution flow (for example, calling prompts, validating inputs).
+
+### `generatorFn`
+This function contains the creation logic. It is typically called by `cmdFn` to manipulate templates, transform data, and write the final files to the disk.
+
+### `config`
+This string defines the name of the property in your configuration files where the CLI should fetch the data specific to this command.
+
+---
+
+## Concrete Example: The `init` Command
+
+Here is how the default initialization command is declared:
+
+```javascript
+commands: {
+    init: {
+        cmdFn: cmdInit,
+        generatorFn: generatorInit,
+        config: "inits",
+    },
+},
+```
+
+**How it works:**
+1. The user types the `init` command.
+2. The CLI executes the **`cmdInit`** function.
+3. To operate, this command will look for its parameters and templates in the **`inits`** section of your configuration files.
+4. It uses **`generatorInit`** to produce the project's initial files.

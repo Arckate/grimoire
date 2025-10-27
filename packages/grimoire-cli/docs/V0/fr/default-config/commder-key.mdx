@@ -1,0 +1,37 @@
+---
+title: 'Cli'
+sidebar_position: 3.2
+sidebar_label: Name, version, description...
+description: Documentation des propriétés de gestion de la CLI.
+---
+
+# Configuration d'Identité et des Dossiers
+
+Ces clés définissent l'identité de votre CLI et la manière dont elle initialise ses références de fichiers.
+
+## Propriétés et Valeurs par défaut
+
+### `name`
+- **Type** : `string`
+- **Valeur par défaut** : `"grim"`
+- **Description** : Le nom binaire de la commande à appeler dans le terminal.
+
+### `version`
+- **Type** : `string`
+- **Valeur par défaut** : `"0.0.0"`
+- **Description** : Définit la version actuelle de votre outil CLI. Elle est affichée via la commande `--version`.
+
+### `description`
+- **Type** : `string`
+- **Valeur par défaut** : `"CLI to some JavaScript string utilities"`
+- **Description** : Texte d'aide décrivant la fonction globale de l'outil.
+
+### `cliFolder`
+- **Type** : `string`
+- **Valeur par défaut** : `".cli"`
+- **Description** : Dossier racine où est stockée toute la logique de votre CLI (generators, inits, starters ...).
+
+### `dirnamesFile`
+- **Type** : `string`
+- **Valeur par défaut** : `"dirnames"`
+- **Description** : Nom du fichier (sans extension) répertoriant les différents noms de répertoires (`dirnames`) des packages NPM importés.

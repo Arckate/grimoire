@@ -1,0 +1,60 @@
+---
+title: 'Cli'
+sidebar_position: 7.2
+sidebar_label: addTo
+description: Documentation for the addTo custom action for file transformation and writing via processors.
+---
+
+# Action: addTo
+
+The `addTo` action is an advanced extension for Plop that allows reading a template, transforming it via a specific processor (defined in `@arckate/grimoire-core`), and then writing it to a specific destination.
+
+## Function Signature
+
+```typescript
+export const addTo: CustomActionFunction = (answers, config, plop) => {
+    // Resolution, processor transformation, and writing
+}
+```
+
+## Configuration Parameters
+
+The `config` object accepts the following properties:
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `templateFile` | `string` | Path to the source file (supports Handlebars). |
+| `path` | `string` | Destination path for the final file (supports Handlebars). |
+| `typeFileFrom` | `string` | Source content type for the processor. |
+| `typeFileTo` | `string` | Target content type for the processor. |
+| `force` | `boolean` | If `true`, overwrites the file if it already exists. |
+
+## Technical Behavior
+
+1. **Path Resolution**: The function resolves absolute paths for the template (via `plop.getPlopfilePath()`) and the destination (via `plop.getDestBasePath()`).
+2. **Existence Check**: If `force` is set to `false` and the target file exists, an error is thrown.
+3. **Processor System**: 
+   - The action retrieves the `processor` from Plop's default inclusions.
+   - It identifies the file extensions (`extFrom` and `extTo`).
+   - It uses the `stringTo` method to transform the template content.
+   - It uses the `write` method to save the result to the disk.
+4. **Error Handling**: If the processor or the required methods for the given extensions/types are missing, the action throws an exception.
+
+## Usage Example
+
+```typescript
+{
+  type: 'addTo',
+  templateFile: 'templates/schema.json.hbs',
+  path: 'src/generated/{{name}}.ts',
+  typeFileFrom: 'json',
+  typeFileTo: 'typescript',
+  force: false
+}
+```
+
+## Useful Links
+
+- [Plop.js Documentation](https://plopjs.com/)
+- [Node.js Path API](https://nodejs.org/)
+- [Node.js File System API](https://nodejs.org/)

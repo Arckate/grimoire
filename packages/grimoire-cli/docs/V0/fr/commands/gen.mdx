@@ -1,0 +1,58 @@
+---
+title: 'Cli'
+sidebar_position: 6.4
+sidebar_label: Gen
+description: Génération massive d'éléments à partir de fichiers de configuration JSON.
+---
+
+# Commande de Génération par Fichier (Gen)
+
+La commande `gen` permet d'automatiser la création de multiples éléments en lisant des instructions stockées dans des fichiers JSON (généralement `gen.json`). Elle est idéale pour les générations en série ou les architectures complexes.
+
+## Configuration Globale
+
+La commande est configurée avec les paramètres suivants :
+- **Fonction de commande** : `cmdGen`
+- **Générateur global** : `generatorGlobal`
+- **Clé de configuration** : `generators`
+
+## Structure Technique
+
+### Configuration des Générateurs (`GeneratorsConfig`)
+
+La commande `gen` partage la même structure de configuration que la commande `new`. Elle gère les modes simples ou groupés :
+
+```typescript
+export type GeneratorsConfig =
+    | {
+            subGenConf: true;
+            [x: string]: Generators | true;
+      }
+    | Generators;
+```
+
+## Utilisation CLI
+
+### Signature
+
+`grimoire gen [options]`
+
+### Options
+- `--in <path>` : Chemin vers le fichier `.plan.json` ou le dossier contenant les fichiers de configuration.
+- `--out <path>` : Chemin de destination global pour les fichiers générés.
+- `-d, --deep` : Active l'utilisation de la clé `genLink` dans les fichiers JSON pour des générations récursives.
+- `-i, --ignore-dest` : Ignore la clé `genDest` définie dans le fichier JSON pour forcer une autre destination.
+- `-t, --type-gen <path>` : Filtre les générateurs par type/groupe (si `subGenConf` est actif).
+- `-f, --force` : Force l'écrasement des fichiers existants.
+
+## Fonctionnement Interne
+
+La fonction `cmdGen` traite les données selon les étapes suivantes :
+1. **Initialisation** : Résolution du chemin Plop et chargement de la configuration des générateurs via `mergeGeneratorConfig`.
+2. **Lecture des Fichiers** : `findFilePlopArgs` scanne les fichiers d'entrée (`--in`) pour extraire les listes d'arguments.
+3. **Traitement Récursif** : Si l'option `--deep` est active, `deepFilePlop` gère les liens entre fichiers de configuration.
+4. **Exécution Plop** : Lance les processus de génération pour chaque entrée trouvée dans la configuration JSON en respectant les filtres de type et les destinations spécifiées.
+
+## Dépendances et Liens
+- Extension du moteur [Plop](https://plopjs.com/).
+- Utilise le moteur de résolution de configuration de [@arckate/grimoire-core](https://www.npmjs.com/).

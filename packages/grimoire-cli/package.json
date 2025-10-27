@@ -1,0 +1,42 @@
+{
+	"name": "@arckate/grimoire-cli",
+	"type": "module",
+	"scripts": {
+		"lint": "biome check",
+		"lint:fix": "biome check --write",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"publish": "pnpm publish --tag latest --access public"
+	},
+	"bin": {
+		"grim": "./bin/index.mjs"
+	},
+	"dependencies": {
+		"@arckate/grimoire-core": "workspace:*",
+		"@arckate/testing-cli": "workspace:*",
+		"cross-spawn": "^7.0.6",
+		"ink": "^7.0.1",
+		"ink-text-input": "^6.0.0",
+		"lodash.merge": "^4.6.2",
+		"node-plop": "^0.32.3",
+		"react": "^19.2.3",
+		"tsconfig-paths": "^4.2.0",
+		"tsx": "^4.21.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.11",
+		"@types/cross-spawn": "^6.0.6",
+		"@types/lodash.merge": "^4.6.9",
+		"@types/node": "^25.0.8",
+		"@types/react": "^19.2.14",
+		"@vitest/coverage-v8": "^4.0.17",
+		"tsdown": "^0.19.0",
+		"typescript": "^5.9.3",
+		"vitest": "^4.0.17"
+	},
+	"turbo": {
+		"tags": [
+			"cli"
+		]
+	}
+}

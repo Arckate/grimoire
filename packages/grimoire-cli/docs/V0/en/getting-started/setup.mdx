@@ -1,0 +1,59 @@
+---
+title: 'Cli'
+sidebar_position: 2.2
+sidebar_label: Configure a project
+description: Quick explanation of the different Grimoire configurations.
+---
+
+# Configure a project
+
+## How configurations are managed
+
+The project is built on 3 levels:
+
+1.  **Grimoire** : this is the default **CLI**. It has the configuration common to all Grimoire-type CLIs in its **.cli** folder.
+2.  **Your custom CLI** : it allows you to share your specific configuration via its **.cli** folder for a given organization.
+3.  **The local .cli folder** : located at the root of the user project, it allows your teams to manage their own specificities.
+
+The configuration of these three levels is merged while remaining independent. You can, for example, use only levels 1 and 3.
+
+## The different configurations
+
+In this part, I will quickly explain the different configurations. Detailed documentation will be available in their respective categories.
+
+### The "config.cli.json" file
+
+Thanks to its **root** key, this file indicates to **Grimoire** where the project root is located and therefore the ".cli" folder.
+It is the cornerstone of the system's monorepo management: it allows you to simplify the management of generators.
+
+### The config.ts file
+
+I started from the principle that developing CLIs is often tedious. I therefore chose to drive the framework as much as possible through configuration.
+In this way, we obtain an entirely "white" CLI, free from my initial decisions.
+
+```typescript
+{
+	name: string,
+	cliFolder: string,
+	rootKey: string, // camelCase
+	dirnamesFile: string,
+	description: string,
+	version: string,
+	...
+};
+```
+
+### The command configurations
+
+Each command can have its own **config**, the URL of which is provided in the corresponding key of the **config.ts** file.
+
+```typescript
+// ./starter.ts
+const config: StarterConfig = {
+	inits,
+	generators,
+	starters: {
+		reactDefault,
+	},
+};
+```

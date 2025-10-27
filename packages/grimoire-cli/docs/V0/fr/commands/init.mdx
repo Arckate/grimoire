@@ -1,0 +1,72 @@
+---
+title: 'Cli'
+sidebar_position: 6.1
+sidebar_label: Init
+description: Initialisation de la CLI et génération des fichiers de configuration de base via des générateurs configurables.
+---
+
+# Commande d'Initialisation (Init)
+
+La commande `init` permet d'initialiser la CLI et de générer les fichiers de configuration de base nécessaires au projet. Elle s'appuie sur un système de générateurs configurables.
+
+## Configuration
+
+La commande est enregistrée dans `config.ts` avec les propriétés suivantes :
+- **Fonction de commande** : `cmdInit`
+- **Générateur associé** : `generatorInit`
+- **Clé de configuration** : `inits`
+
+Par défaut, la configuration (`.cli/inits.ts`) définit :
+- **Template par défaut** : `default`
+- **Dossier source** : `defaultDir`
+- **Action** : `defaultInit`
+
+### Structure Technique
+
+L'interface `InitsConfig` définit le registre des fonctions d'initialisation disponibles :
+
+```typescript
+export type InitsConfig = Record<
+    string,
+    InitFn | { nameDir: string; initFn: InitFn }
+>;
+```
+
+Chaque initialiseur est une fonction `InitFn` utilisant les types suivants :
+
+```typescript
+export type InitFindDir = (extraPath: string) => string;
+
+interface InitFnParams {
+    findDir?: InitFindDir;
+    config: FnConfig;
+}
+
+export type InitFn = (params: InitFnParams) => Partial<PlopGeneratorConfig>;
+```
+
+## Utilisation CLI
+
+### Signature
+
+`grimoire init [string...] [options]`
+
+### Arguments
+- `[string...]` : Arguments optionnels transmis directement au générateur Plop.
+
+### Options
+- `-f, --force` : Force l'écrasement des fichiers existants (défaut : `false`).
+- `--out <path>` : Définit le chemin de destination pour la génération des fichiers (défaut : dossier courant).
+- `-p, --ignore-prompts` : Ignore les questions interactives de Plop et utilise les arguments fournis.
+
+## Fonctionnement Interne
+
+La fonction `cmdInit` exécute les étapes suivantes :
+1. **Recherche des chemins** : Localise le fichier Plop d'initialisation (`INIT_PLOP_FILE`) et le fichier de configuration des inits (`CONF_INITS`).
+2. **Fusion de configuration** : Utilise `mergeInitsConfig` pour combiner les configurations d'initialisation trouvées.
+3. **Traitement des arguments** : Analyse les paramètres ignorés et les arguments passés pour préparer l'exécution.
+4. **Exécution Plop** : Appelle `cmdPlop` avec les paramètres configurés, incluant l'extension et le type de fichier définis dans la configuration globale.
+
+## Dépendances et Liens
+- Basé sur le moteur [Plop](https://plopjs.com/).
+- Utilise les utilitaires internes de [@arckate/grimoire-core](https://www.npmjs.com/).

@@ -1,0 +1,64 @@
+---
+title: 'Cli'
+sidebar_position: 3.7
+sidebar_label: TemplateType, Templating
+description: Documentation de la structure des templates et de leur logique d'exécution.
+---
+
+### TemplateType et Templating
+
+Ces deux clés travaillent ensemble pour définir comment vos fichiers de templates sont interprétés et rendus.
+
+#### La clé `templateType`
+
+La clé `templateType` (type `string`) définit le moteur de rendu par défaut à utiliser. Elle doit correspondre à l'une des clés définies dans l'objet `templating`.
+
+Exemple : `"templateType": "handlebars"`
+
+#### La clé `templating`
+
+La clé `templating` sert à définir la liste des moteurs de rendu disponibles. Par défaut, le système permet d'utiliser des moteurs comme **Handlebars** (utilisé par `plop.js`).
+
+##### Structure de l'objet
+
+```typescript
+    templating: {
+        [engineName: string]: {
+            render: Fn,
+            options: object
+        }
+    }
+```
+
+##### Détails des propriétés du moteur
+
+| Propriété | Type | Description |
+| :--- | :--- | :--- |
+| `engineName` | `string` | Nom du moteur de rendu (ex: `handlebars`). |
+| `render` | `function` | Fonction de callback pour transformer le template en contenu final. |
+| `options` | `object` | Objet contenant les paramètres de configuration du moteur (helpers, partials, etc.). |
+
+#### Exemple d'utilisation
+
+Dans votre fichier `.cli/config.ts` :
+
+```typescript
+    const config = {
+        templateType: 'handlebars',
+        templating: {
+            handlebars: {
+                render: renderHandlebars,
+                options: {
+                    helpers: {
+                        upperCase: (text) => text.toUpperCase()
+                    },
+                    partials: {
+                        myTitlePartial: (text) => "<h1>{{titleCase name}}</h1>"
+                    }
+                }
+            }
+        }
+    }
+```
+
+Cette configuration permet à **Grimoire** de rester totalement indépendant ("white label"), vous laissant libre d'utiliser n'importe quel moteur de templating.
