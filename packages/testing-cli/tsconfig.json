@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"lib": ["ESNext"],
+		"esModuleInterop": true,
+		"isolatedModules": true,
+		"types": ["node"]
+	},
+	"include": ["src", "tsdown.config.ts"],
+	"exclude": ["dist"]
+}

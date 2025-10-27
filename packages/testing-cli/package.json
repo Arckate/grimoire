@@ -1,0 +1,60 @@
+{
+	"name": "@arckate/testing-cli",
+	"version": "0.0.1",
+	"type": "module",
+	"description": "Un framework de test inspiré de Testing Library pour les CLI basées sur Commander",
+	"main": "dist/index.mjs",
+	"types": "dist/index.d.mts",
+	"author": {
+		"name": "Emeric Lebbrecht",
+		"email": "emeric.lebbrecht@gmail.com"
+	},
+	"license": "MIT",
+	"keywords": [
+		"cli",
+		"testing",
+		"commander",
+		"vitest"
+	],
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"types": "./dist/index.d.mts"
+		},
+		"./entities": {
+			"import": "./dist/entities/index.mjs",
+			"types": "./dist/entities/index.d.mts"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"entities": [
+				"dist/config/index.d.mts"
+			]
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsdown",
+		"lint": "biome check --write",
+		"clean": "rm -rf dist"
+	},
+	"dependencies": {
+		"chalk": "^5.6.2",
+		"commander": "^14.0.2",
+		"node-plop": "^0.32.3"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.6",
+		"@types/node": "^24.10.1",
+		"tsdown": "^0.16.5",
+		"typescript": "^5.9.3"
+	},
+	"turbo": {
+		"tags": [
+			"testing"
+		]
+	}
+}
