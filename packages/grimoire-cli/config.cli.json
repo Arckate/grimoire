@@ -1,0 +1,5 @@
+{
+	"root": true,
+	"genFileExt": "json",
+	"genFileType": "camelCase"
+}
