@@ -1,0 +1,4 @@
+{
+  "scopeName": "source.hbs.js",
+  "patterns": [{ "include": "source.js" }]
+}
